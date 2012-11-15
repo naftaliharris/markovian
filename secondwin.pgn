@@ -1,0 +1,23 @@
+[Event "Computer Chess Game"]
+[Site "rubiks"]
+[Date "2011.09.21"]
+[Round "-"]
+[White "Fairy-Max 4.8O"]
+[Black "Naftali"]
+[Result "0-1"]
+[TimeControl "40/300"]
+
+1. c3 d5 2. Nf3 Qd6 3. d4 Nc6 4. g3 Bg4 5. Bf4 Qd7 6. h3 Bxf3 7. exf3 O-O-O
+8. h4 e6 9. Bd3 Bd6 10. Bxd6 Qxd6 11. O-O Nge7 12. Nd2 e5 13. Nb3 exd4 14.
+Nxd4 Nxd4 15. cxd4 Qf6 16. Rc1 Nc6 17. Qc2 Kb8 18. Bb5 Nxd4 19. Qxc7+ Ka8
+20. Qa5 b6 21. Qa6 Nxb5 22. Qxb5 Kb7 23. a4 Rhe8 24. a5 d4 25. a6+ Kb8 26.
+Rfd1 g6 27. Qc4 Re7 28. b4 Red7 29. f4 h6 30. Rd3 Qe7 31. Rcd1 Rc8 32. Qb5
+Rcd8 33. Qe5+ Qd6 34. Qe4 Qd5 35. f3 b5 36. Rc1 Rc7 37. Rc5 Rxc5 38. bxc5
+Qxe4 39. fxe4 Kc7 40. f5 gxf5 41. exf5 Kc6 42. g4 Kxc5 43. g5 hxg5 44. hxg5
+Rd5 45. f6 Rxg5+ 46. Kf2 Kc4 47. Rd1 Rf5+ 48. Ke1 Rxf6 49. Rc1+ Kd3 50. Rb1
+Rb6 51. Kf2 b4 52. Rd1+ Kc2 53. Rxd4 b3 54. Rc4+ Kd3 55. Rc1 b2 56. Rb1 Kc2
+57. Rg1 Rxa6 58. Ke3 Ra4 59. Kf3 f5 60. Rh1 a5 61. Rh2+ Kc3 62. Rh1 Ra1 63.
+Rh7 b1=Q 64. Rc7+ Kd4 65. Rd7+ Ke5 66. Re7+ Kf6 67. Re8 Qd1+ 68. Kf4 Qd2+
+69. Kg3 Ra3+ 70. Re3 Rxe3+ 71. Kh4 Qh2#
+{Xboard adjudication: Checkmate} 0-1
+

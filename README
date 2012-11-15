@@ -1,0 +1,24 @@
+How to download, compile, and run Markovian:
+
+1)	Download markovian.tgz
+
+2)	Open your terminal and navigate to your downloads directory, usually ~/Downloads. 
+$ cd ~/Downloads
+
+3)	untar markovian.tgz in terminal:
+$ tar xf markovian.tgz
+
+4)	Navigate to the newly created markovian directory:
+$ cd markovian
+
+5)	Compile markovian:
+$ make
+
+6)	In the same directory, run markovian with xboard:
+$ xboard -fcp "./markovian" -fd "."
+
+(If xboard is not installed on your machine, install it with:
+$ sudo apt-get install xboard
+and then re-attempt step 6).
+
+7)	Play white against Markovian!

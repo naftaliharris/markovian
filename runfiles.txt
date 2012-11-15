@@ -1,0 +1,1 @@
+ai.c allmoves.c bitboard.h bitscan.c chess.c dequietmoves.c evaluate.c frontend.c Makefile minmax.h move.c move.h position.c position.h timer.c ./evaluation/control_eval.c ./evaluation/pawn_eval.c ./hash/hash.c ./hash/hashgen.c ./hash/hash.h ./hash/Makefile features.h

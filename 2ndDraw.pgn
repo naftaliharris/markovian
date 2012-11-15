@@ -1,0 +1,24 @@
+[Event "Computer Chess Game"]
+[Site "rubiks"]
+[Date "2011.07.10"]
+[Round "-"]
+[White "Fairy-Max 4.8O"]
+[Black "Naftali"]
+[Result "1/2-1/2"]
+[TimeControl "40/300"]
+
+1. f3 e6 2. Nh3 Bc5 3. e3 Bd6 4. Nc3 Nh6 5. Nb5 b6 6. Nxd6+ cxd6 7. Bd3
+Qh4+ 8. Nf2 Bb7 9. g3 Qf6 10. Be2 O-O 11. O-O Rc8 12. d3 a5 13. c3 e5 14.
+e4 a4 15. Be3 d5 16. d4 exd4 17. Qxd4 Qxd4 18. Bxd4 dxe4 19. fxe4 Rc6 20.
+Bb5 Rg6 21. Rfd1 a3 22. bxa3 Rxa3 23. Be5 Bc6 24. Bxc6 Nxc6 25. Rxd7 f5 26.
+Bc7 Rxc3 27. exf5 Nxf5 28. Bxb6 Ne5 29. Rb7 Nf3+ 30. Kg2 Rh6 31. Ng4 Re6
+32. Rf1 Ne1+ 33. Kf2 Rc2+ 34. Kg1 h5 35. Rxf5 hxg4 36. Rf2 Rc1 37. Rb8+ Kh7
+38. Rf1 Nf3+ 39. Kg2 Re2+ 40. Bf2 Rxf1 41. Kxf1 Rxa2 42. Kg2 Nxh2 43. Rb4
+Kg6 44. Rf4 Nf3 45. Rxg4+ Ng5 46. Kf1 Ra1+ 47. Ke2 Ra2+ 48. Ke3 Kf5 49. Rb4
+Ra3+ 50. Kd4 Nf3+ 51. Kd5 Rd3+ 52. Kc5 Ne5 53. Rf4+ Ke6 54. Re4 Rc3+ 55.
+Kb5 Rb3+ 56. Ka4 Rf3 57. Re2 Kd5 58. Be3 Rxg3 59. Bf4 Rg4 60. Rxe5+ Kd6 61.
+Re4+ Kd5 62. Rb4 Rg1 63. Kb3 Rb1+ 64. Kc3 Rxb4 65. Kxb4 Kd4 66. Bd2 g6 67.
+Bc1 Kd5 68. Kc3 Ke4 69. Kd2 Kf4 70. Ke2+ Ke4 71. Kf2 Kf5 72. Kf3 g5 73. Kg3
+Ke4 74. Kg4 Kd4 75. Bb2+ Kc4 76. Kxg5
+{Xboard adjudication: Insufficient mating material} 1/2-1/2
+
