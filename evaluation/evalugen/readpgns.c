@@ -25,9 +25,11 @@
 #define LINESIZE 8192
 
 // printout a line in the data matrix for evaluation
-void analyze(float result, int nummoves, char *WElo, char *BElo, struct position *pos)
+void analyze(float result, int nummoves, char *WElo, char *BElo,
+	     struct position *pos)
 {
-	fprintf(stdout,"%.1f %d %s %s %d %d ",result, nummoves, WElo, BElo, pos->score, pos->tot_mat);
+	fprintf(stdout, "%.1f %d %s %s %d %d ", result, nummoves, WElo, BElo,
+		pos->score, pos->tot_mat);
 
 	char *squares = calloc(64, 1);
 
@@ -76,7 +78,7 @@ void analyze(float result, int nummoves, char *WElo, char *BElo, struct position
 	// pawn evaluation:
 	pawn_eval(pos);
 
-	fprintf(stdout,"\n");
+	fprintf(stdout, "\n");
 	free(squares);
 }
 
@@ -84,19 +86,19 @@ void analyze(float result, int nummoves, char *WElo, char *BElo, struct position
 void user_castling(struct position *pos, struct move *mv)
 {
 	mv->castling = NONE;
-	if(mv->from_p == wking_n){
-		if(mv->from == 4 && mv->to == 6){
+	if (mv->from_p == wking_n) {
+		if (mv->from == 4 && mv->to == 6) {
 			mv->castling = WKING;
 		}
-		if(mv->from == 4 && mv->to == 2){
+		if (mv->from == 4 && mv->to == 2) {
 			mv->castling = WQUEEN;
 		}
 	}
-	if(mv->from_p == bking_n){
-		if(mv->from == 60 && mv->to == 62){
+	if (mv->from_p == bking_n) {
+		if (mv->from == 60 && mv->to == 62) {
 			mv->castling = BKING;
 		}
-		if(mv->from == 60 && mv->to == 58){
+		if (mv->from == 60 && mv->to == 58) {
 			mv->castling = BQUEEN;
 		}
 	}
@@ -107,132 +109,124 @@ void user_castling(struct position *pos, struct move *mv)
 int user_special(struct position *pos, struct move *mv, char *buffer)
 {
 	mv->special = EMPTY;
-	if(mv->from_p == wpawns_n){
-		if(mv->to / 8 == 3){
-			if(mv->from / 8 == 1){
+	if (mv->from_p == wpawns_n) {
+		if (mv->to / 8 == 3) {
+			if (mv->from / 8 == 1) {
 				mv->special = ADVANCE2;
 			}
-		}
-		else if(mv->to / 8 == 7){
-			switch(buffer[4])
-			{
-				case 'Q':
-					mv->special = QUEEN | WHITE;
-					break;
-				case 'R':
-					mv->special = ROOK | WHITE;
-					break;
-				case 'N':
-					mv->special = KNIGHT | WHITE;
-					break;
-				case 'B':
-					mv->special = BISHOP | WHITE;
-					break;
-				default:
-					return(-1);
+		} else if (mv->to / 8 == 7) {
+			switch (buffer[4]) {
+			case 'Q':
+				mv->special = QUEEN | WHITE;
+				break;
+			case 'R':
+				mv->special = ROOK | WHITE;
+				break;
+			case 'N':
+				mv->special = KNIGHT | WHITE;
+				break;
+			case 'B':
+				mv->special = BISHOP | WHITE;
+				break;
+			default:
+				return (-1);
 			}
 		}
 	}
-	if(mv->from_p == bpawns_n){
-		if(mv->to / 8 == 4){
-			if(mv->from / 8 == 6){
+	if (mv->from_p == bpawns_n) {
+		if (mv->to / 8 == 4) {
+			if (mv->from / 8 == 6) {
 				mv->special = ADVANCE2;
 			}
-		}
-		else if(mv->to / 8 == 0){
-			switch(buffer[4])
-			{
-				case 'Q':
-					mv->special = QUEEN | BLACK;
-					break;
-				case 'R':
-					mv->special = ROOK | BLACK;
-					break;
-				case 'N':
-					mv->special = KNIGHT | BLACK;
-					break;
-				case 'B':
-					mv->special = BISHOP | BLACK;
-					break;
-				default:
-					return(-1);
+		} else if (mv->to / 8 == 0) {
+			switch (buffer[4]) {
+			case 'Q':
+				mv->special = QUEEN | BLACK;
+				break;
+			case 'R':
+				mv->special = ROOK | BLACK;
+				break;
+			case 'N':
+				mv->special = KNIGHT | BLACK;
+				break;
+			case 'B':
+				mv->special = BISHOP | BLACK;
+				break;
+			default:
+				return (-1);
 			}
 		}
 	}
-	return(0);
+	return (0);
 }
 
 int main(int argc, char **argv)
 {
-	if(argc != 2){
+	if (argc != 2) {
 		printf("Syntax: ./readpgns pgnfile\n");
 		exit(-1);
 	}
 	size_t n = LINESIZE;
 	char *line = calloc(n, sizeof(char));
-	FILE *fp = fopen(argv[1],"r");
+	FILE *fp = fopen(argv[1], "r");
 	int len;
 
-	float result = -1; //0 if black wins, 0.5 if draw, 1 if white
+	float result = -1;	//0 if black wins, 0.5 if draw, 1 if white
 	char WElo[8];
 	char BElo[8];
-	memcpy(WElo,"NA\0\0\0\0\0\0",8);
-	memcpy(BElo,"NA\0\0\0\0\0\0",8);
+	memcpy(WElo, "NA\0\0\0\0\0\0", 8);
+	memcpy(BElo, "NA\0\0\0\0\0\0", 8);
 
 	int gamenum = 0;
 	int linenum = 0;
 
-	while((len = getline(&line, &n, fp))!= -1)
-	{
-		if(len == 1){ // length of one means *line == "\n"
+	while ((len = getline(&line, &n, fp)) != -1) {
+		if (len == 1) {	// length of one means *line == "\n"
 			continue;
-		}
-		else if(strncmp(line, "[",1) == 0){
-			if(strncmp(line, "[Result ", 8) == 0){
-				if(strncmp(line, "[Result \"0-1\"", 13) == 0){
+		} else if (strncmp(line, "[", 1) == 0) {
+			if (strncmp(line, "[Result ", 8) == 0) {
+				if (strncmp(line, "[Result \"0-1\"", 13) == 0) {
 					result = 0;
-				}
-				else if(strncmp(line, "[Result \"1-0\"", 13) == 0){
+				} else if (strncmp(line, "[Result \"1-0\"", 13)
+					   == 0) {
 					result = 1;
-				}
-				else if(strncmp(line, "[Result \"1/2-1/2\"", 17) == 0){
+				} else
+				    if (strncmp(line, "[Result \"1/2-1/2\"", 17)
+					== 0) {
 					result = 0.5;
 				}
 				// other possibility: Result = "*", detected later.
-			}
-			else if(strncmp(line, "[WhiteElo ", 8) == 0){
+			} else if (strncmp(line, "[WhiteElo ", 8) == 0) {
 				memcpy(WElo, &line[11], 4);
-				if(WElo[3] == '\"'){
+				if (WElo[3] == '\"') {
 					WElo[3] = '\0';
 					/*
-					printf("3 digit Elo\n");
-					printf("%s",line);
-					printf("%s\n",WElo);
-					*/
+					   printf("3 digit Elo\n");
+					   printf("%s",line);
+					   printf("%s\n",WElo);
+					 */
 				}
-			}
-			else if(strncmp(line, "[BlackElo ", 8) == 0){
+			} else if (strncmp(line, "[BlackElo ", 8) == 0) {
 				memcpy(BElo, &line[11], 4);
-				if(BElo[3] == '\"'){
+				if (BElo[3] == '\"') {
 					BElo[3] = '\0';
 					/*
-					printf("3 digit Elo\n");
-					printf("%s",line);
-					printf("%s\n",BElo);
-					*/
+					   printf("3 digit Elo\n");
+					   printf("%s",line);
+					   printf("%s\n",BElo);
+					 */
 				}
 			}
-		}
-		else {
-			if(result == -1 || BElo[3] == '\0' || WElo[3] == '\0'){ // example, Result = "*", messed up 3-digit Elos. 3-digit Elos are all 245 or 246 or something around there, suggesting simply missing a digit
+		} else {
+			if (result == -1 || BElo[3] == '\0' || WElo[3] == '\0') {	// example, Result = "*", messed up 3-digit Elos. 3-digit Elos are all 245 or 246 or something around there, suggesting simply missing a digit
 				continue;
 			}
 			gamenum++;
-			
+
 			// find how many moves it has
 			int nummoves = 0;
-			for(int i = 0; i < len; i++){
-				if(line[i] == ' '){
+			for (int i = 0; i < len; i++) {
+				if (line[i] == ' ') {
 					nummoves++;
 				}
 			}
@@ -244,23 +238,31 @@ int main(int argc, char **argv)
 			struct position *pos = malloc(sizeof(struct position));
 			init_position(pos);
 
-			for(int i = 0; i < len; i++){
-				if(line[i] == ' ' || line[i] == '+' || line[i] == '#' || line[i] == '1' || line[i] == '/' || line[i] == '0' || line[i] == '2' || line[i] == '-' || line[i] == '\n' || line[i] == 'Q' || line[i] == 'N' || line[i] == 'B' || line[i] == 'R' || line[i] == '*'){
+			for (int i = 0; i < len; i++) {
+				if (line[i] == ' ' || line[i] == '+'
+				    || line[i] == '#' || line[i] == '1'
+				    || line[i] == '/' || line[i] == '0'
+				    || line[i] == '2' || line[i] == '-'
+				    || line[i] == '\n' || line[i] == 'Q'
+				    || line[i] == 'N' || line[i] == 'B'
+				    || line[i] == 'R' || line[i] == '*') {
 					// stars happen maybe 7 times in allmastergames, nbd...
 					/*
-					if(line[i] == '*'){
-						fprintf(stderr,"%f *\n", result);
-					}
-					*/
+					   if(line[i] == '*'){
+					   fprintf(stderr,"%f *\n", result);
+					   }
+					 */
 					continue;
-				}
-				else {
-					assert((line[i] >= 'a' && line[i] <= 'h') || (line[i] >= '1' && line[i] <= 8));
+				} else {
+					assert((line[i] >= 'a'
+						&& line[i] <= 'h')
+					       || (line[i] >= '1'
+						   && line[i] <= 8));
 
 					fromj = line[i + 0] - 'a';
 					fromi = line[i + 1] - '1';
-					toj =   line[i + 2] - 'a';
-					toi =   line[i + 3] - '1';
+					toj = line[i + 2] - 'a';
+					toi = line[i + 3] - '1';
 
 					// make the move
 					mv->from = fromi * 8 + fromj;
@@ -270,32 +272,39 @@ int main(int argc, char **argv)
 					assert(mv->from < 64 && mv->to < 64);
 
 					mv->from_p = find_piece(pos, mv->from);
-					if((mv->from_p == wpawns_n) || (mv->from_p == bpawns_n)){
-						mv->to_p = find_piece_ep(pos, mv->to);
-					}
-					else {
-						mv->to_p = find_piece(pos, mv->to);
+					if ((mv->from_p == wpawns_n)
+					    || (mv->from_p == bpawns_n)) {
+						mv->to_p =
+						    find_piece_ep(pos, mv->to);
+					} else {
+						mv->to_p =
+						    find_piece(pos, mv->to);
 					}
 					user_castling(pos, mv);
 
-					int jim = user_special(pos, mv, &line[i]);
+					int jim =
+					    user_special(pos, mv, &line[i]);
 					assert(jim != -1);
 
-					make_move(pos,mv);
+					make_move(pos, mv);
 					/*
-					print_position(pos);
-					char jimothy[4];
-					fscanf(stdin,"%s",jimothy);
-					*/
-					
-					// do a basic quiessience tactical search to see if there is a tactic we are missing; if so, don't analyze this position because we will never use this evaluation!
-					struct meta_move *mm = calloc(1, sizeof(struct meta_move));
-					int multiplier = pos->tomove * -2 + 1;
-					quiet(pos, 0, MINUSINFINITY, PLUSINFINITY, multiplier, 0, mm);
+					   print_position(pos);
+					   char jimothy[4];
+					   fscanf(stdin,"%s",jimothy);
+					 */
 
-					if(abs(pos->score - mm->score) <= PAWN_VAL / 2){
+					// do a basic quiessience tactical search to see if there is a tactic we are missing; if so, don't analyze this position because we will never use this evaluation!
+					struct meta_move *mm =
+					    calloc(1, sizeof(struct meta_move));
+					int multiplier = pos->tomove * -2 + 1;
+					quiet(pos, 0, MINUSINFINITY,
+					      PLUSINFINITY, multiplier, 0, mm);
+
+					if (abs(pos->score - mm->score) <=
+					    PAWN_VAL / 2) {
 						// analyze new position since no major tactics are possible
-						analyze(result, nummoves, WElo, BElo, pos);
+						analyze(result, nummoves, WElo,
+							BElo, pos);
 					}
 					free(mm);
 
@@ -306,12 +315,12 @@ int main(int argc, char **argv)
 			free(pos);
 
 			// reinitialize variables
-			memcpy(WElo,"NA\0\0\0\0\0\0",8);
-			memcpy(BElo,"NA\0\0\0\0\0\0",8);
+			memcpy(WElo, "NA\0\0\0\0\0\0", 8);
+			memcpy(BElo, "NA\0\0\0\0\0\0", 8);
 			result = -1;
 
-			if(gamenum % 10000 == 0){
-				fprintf(stderr,"gamenum = %d\n",gamenum);
+			if (gamenum % 10000 == 0) {
+				fprintf(stderr, "gamenum = %d\n", gamenum);
 			}
 		}
 
@@ -319,6 +328,6 @@ int main(int argc, char **argv)
 		linenum++;
 	}
 
-//	printf("finished  %d games\n", gamenum); //this fucks with reading data into R
-	return(0);
+//      printf("finished  %d games\n", gamenum); //this fucks with reading data into R
+	return (0);
 }

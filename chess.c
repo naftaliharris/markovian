@@ -12,7 +12,7 @@
 #include <signal.h>
 
 #ifndef _DEBUG
-#define NDEBUG 
+#define NDEBUG
 #endif
 #include <assert.h>
 
@@ -37,24 +37,24 @@
 void INThandler(int sig)
 {
 	exit(-1);
-} 
+}
 
 int main(int argc, char **argv)
 {
-	setbuf(stdout,NULL);
-	signal(SIGINT,INThandler);
+	setbuf(stdout, NULL);
+	signal(SIGINT, INThandler);
 
 	unsigned char ply = 6;
 
 	int opt;
-	while((opt = getopt(argc, argv, "p:")) != -1){
-		switch(opt) {
-			case 'p':
-				ply = atoi(optarg);
-				break;
-			default:
-				fprintf(stderr, "Usage: %s [-p ply]\n", argv[0]);
-				exit(EXIT_FAILURE);
+	while ((opt = getopt(argc, argv, "p:")) != -1) {
+		switch (opt) {
+		case 'p':
+			ply = atoi(optarg);
+			break;
+		default:
+			fprintf(stderr, "Usage: %s [-p ply]\n", argv[0]);
+			exit(EXIT_FAILURE);
 		}
 	}
 
@@ -67,48 +67,51 @@ int main(int argc, char **argv)
 
 	tt = new_trans_tables();
 
-	#ifdef _USE_HISTORY
+#ifdef _USE_HISTORY
 	hist = init_history();
-	#endif
+#endif
 
-	#ifdef _DEBUG
+#ifdef _DEBUG
 	testing();
-	#endif
+#endif
 
-	#ifndef _XBOARD
+#ifndef _XBOARD
 	print_position(&pos);
-	#endif
-	
-	while(1){
-		if(is_check(&pos)){
-			fprintf(stderr,"check.\n");
+#endif
+
+	while (1) {
+		if (is_check(&pos)) {
+			fprintf(stderr, "check.\n");
 		}
 
 		user_move(&pos);
-		#ifndef _XBOARD
+#ifndef _XBOARD
 		print_position(&pos);
-		#endif
+#endif
 		assert(consistency(&pos));
 
-		if(is_check(&pos)){
-			fprintf(stderr,"check.\n");
+		if (is_check(&pos)) {
+			fprintf(stderr, "check.\n");
 		}
 
-		clock_gettime(CLOCK_REALTIME,&realt_old);
-		clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&cput_old);
-		computer_move(&pos,ply);
+		clock_gettime(CLOCK_REALTIME, &realt_old);
+		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cput_old);
+		computer_move(&pos, ply);
 		assert(consistency(&pos));
-		clock_gettime(CLOCK_REALTIME,&realt_new);
-		clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&cput_new);
+		clock_gettime(CLOCK_REALTIME, &realt_new);
+		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cput_new);
 
-		#ifndef _XBOARD
-		fprintf(stderr,"One second: %12llu ns\n",(long long unsigned) BILLION);
-		fprintf(stderr,"Real  time: %12llu ns\n",(long long unsigned) minus_time(&realt_new,&realt_old));
-		fprintf(stderr,"CPU   time: %12llu ns\n",(long long unsigned) minus_time(&cput_new,&cput_old));
+#ifndef _XBOARD
+		fprintf(stderr, "One second: %12llu ns\n",
+			(long long unsigned)BILLION);
+		fprintf(stderr, "Real  time: %12llu ns\n",
+			(long long unsigned)minus_time(&realt_new, &realt_old));
+		fprintf(stderr, "CPU   time: %12llu ns\n",
+			(long long unsigned)minus_time(&cput_new, &cput_old));
 
 		print_position(&pos);
-		#endif
+#endif
 	}
-	
-	return(0);
+
+	return (0);
 }

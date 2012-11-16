@@ -16,9 +16,8 @@ The hash struct implements 1 and 2 the same way, but it records en_passant and c
 struct history *init_history(void)
 {
 	struct history *hist = calloc(1, sizeof(struct history));
-	return(hist);
+	return (hist);
 }
-
 
 // checks if the position indexed by move_num is a repetition of a previous position in the history
 // Note: There is no need to clear the history struct when unmoving, because the hashes will be just be overwritten later and is_rep does not use any information past move_num
@@ -26,12 +25,12 @@ int is_rep(uint16_t, uint16_t);
 inline int is_rep(uint16_t limp1, uint16_t move_num)
 {
 	// repetitions are only possible in positions 4, 6, 8, 10,... moves ago
-	for(int i = move_num - 4; i >= limp1; i-=2){
-		if(hist->keys[i] == hist->keys[move_num]){
-			return(1);
+	for (int i = move_num - 4; i >= limp1; i -= 2) {
+		if (hist->keys[i] == hist->keys[move_num]) {
+			return (1);
 		}
 	}
-	return(0);
+	return (0);
 }
 
 #endif

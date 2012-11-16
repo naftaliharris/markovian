@@ -17,39 +17,42 @@
 // just prints the promotion piece
 char print_special(struct move *mv)
 {
-	switch(mv->special & PROMOMASK)
-	{
-		case QUEEN:
-			return('q');
-		case ROOK:
-			return('r');
-		case KNIGHT:
-			return('n');
-		case BISHOP:
-			return('b');
-		default:
-			return(' '); 
+	switch (mv->special & PROMOMASK) {
+	case QUEEN:
+		return ('q');
+	case ROOK:
+		return ('r');
+	case KNIGHT:
+		return ('n');
+	case BISHOP:
+		return ('b');
+	default:
+		return (' ');
 	}
 }
 
 void print_move(struct move *mv)
 {
-	#ifndef _XBOARD
-	fprintf(stdout,"%c%c %c%c %c| ",mv->from % 8 + 'a', mv->from/8 + '1', mv->to % 8 + 'a', mv->to/8 + '1', print_special(mv));
-	#endif
-	
-	#ifdef _XBOARD
-	fprintf(stdout,"%c%c%c%c%c",mv->from % 8 + 'a', mv->from/8 + '1', mv->to % 8 + 'a', mv->to/8 + '1', print_special(mv));
-	#endif
+#ifndef _XBOARD
+	fprintf(stdout, "%c%c %c%c %c| ", mv->from % 8 + 'a',
+		mv->from / 8 + '1', mv->to % 8 + 'a', mv->to / 8 + '1',
+		print_special(mv));
+#endif
+
+#ifdef _XBOARD
+	fprintf(stdout, "%c%c%c%c%c", mv->from % 8 + 'a', mv->from / 8 + '1',
+		mv->to % 8 + 'a', mv->to / 8 + '1', print_special(mv));
+#endif
 }
 
 void print_move_array(struct move_array *m)
 {
-	fprintf(stdout,"lsize = %d\n",m->lsize);
-	fprintf(stdout,"mv     |  score      to_p\n");
-	for(int i = 0; i < m->lsize; i++){
+	fprintf(stdout, "lsize = %d\n", m->lsize);
+	fprintf(stdout, "mv     |  score      to_p\n");
+	for (int i = 0; i < m->lsize; i++) {
 		print_move(&m->list[i].mv);
-		fprintf(stdout,"%d %d\n",m->list[i].score, m->list[i].mv.to_p);
+		fprintf(stdout, "%d %d\n", m->list[i].score,
+			m->list[i].mv.to_p);
 	}
 }
 
@@ -60,7 +63,7 @@ inline struct move_array *new_move_array(void)
 	m->list = calloc(MAXMOVES, sizeof(struct meta_move));
 	m->lsize = 0;
 	m->psize = MAXMOVES;
-	return(m);
+	return (m);
 }
 
 void free_move_array(struct move_array *);
@@ -72,11 +75,10 @@ inline void free_move_array(struct move_array *m)
 
 void free_meta_move(struct meta_move *mm)
 {
-	if(mm->ma == NULL){
+	if (mm->ma == NULL) {
 		return;
-	}
-	else {
-		for(int i = 0; i < mm->ma->lsize; i++){
+	} else {
+		for (int i = 0; i < mm->ma->lsize; i++) {
 			free_meta_move(&mm->ma->list[i]);
 		}
 		free_move_array(mm->ma);
@@ -139,12 +141,14 @@ inline void copy_move_info(struct move_info *mi)
 // transforms signature 'b' with magic 'magic' of length 'bits'
 // typically, b = rook_bitboard & mask, or analogous
 int magictransform(uint64_t, uint64_t, int);
-inline int magictransform(uint64_t b, uint64_t magic, int bits) {
+inline int magictransform(uint64_t b, uint64_t magic, int bits)
+{
 #ifdef USE_32_BIT_MULTIPLICATIONS
-		return
-			(unsigned)((int)b*(int)magic ^ (int)(b>>32)*(int)(magic>>32)) >> (32-bits);
+	return
+	    (unsigned)((int)b * (int)magic ^ (int)(b >> 32) *
+		       (int)(magic >> 32)) >> (32 - bits);
 #else
-		return (int)((b * magic) >> (64 - bits));
+	return (int)((b * magic) >> (64 - bits));
 #endif
 }
 
@@ -153,12 +157,12 @@ inline unsigned char find_piece(struct position *pos, unsigned char loc)
 {
 	// NOTE: does NOT look in ep_squares[pos->towait][pos->ep], since this function MUST be called only by non-pawns attacks
 	// can obviously be optimized
-	for(int i = 0; i < 12; i++){
-		if(linboard[loc] & pos->pieces[i]){
-			return(i);
+	for (int i = 0; i < 12; i++) {
+		if (linboard[loc] & pos->pieces[i]) {
+			return (i);
 		}
 	}
-	return(nopiece_n); //didn't find any piece there
+	return (nopiece_n);	//didn't find any piece there
 }
 
 unsigned char find_piece_ep(struct position *, unsigned char);
@@ -166,15 +170,15 @@ inline unsigned char find_piece_ep(struct position *pos, unsigned char loc)
 {
 	// NOTE: DOES look in ep_squares[pos->towait][pos->ep], since this function MUST be called only by pawns
 	// can obviously be optimized
-	for(int i = 0; i < 12; i++){
-		if(linboard[loc] & pos->pieces[i]){
-			return(i);
+	for (int i = 0; i < 12; i++) {
+		if (linboard[loc] & pos->pieces[i]) {
+			return (i);
 		}
 	}
-	if(linboard[loc] & ep_squares[pos->towait][pos->ep]){
-		return(eppiece_n);
+	if (linboard[loc] & ep_squares[pos->towait][pos->ep]) {
+		return (eppiece_n);
 	}
-	return(nopiece_n); //didn't find any piece or ep trace there
+	return (nopiece_n);	//didn't find any piece or ep trace there
 }
 
 #endif

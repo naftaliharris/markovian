@@ -11,19 +11,19 @@
 #include "countmoves.c"
 
 // Will return evaluation relative to white; higher numbers are better for white
-int32_t evaluate(struct position *pos)
+int32_t evaluate(struct position * pos)
 {
 	uint32_t result = 0;
-	
-	#ifdef _USE_CONTROL_EVAL
+
+#ifdef _USE_CONTROL_EVAL
 	result += control_eval(pos);
-	#endif
+#endif
 
-	#ifdef _USE_PAWN_EVAL
+#ifdef _USE_PAWN_EVAL
 	result += pawn_eval(pos);
-	#endif
+#endif
 
-	#ifdef _USE_COUNT_EVAL
+#ifdef _USE_COUNT_EVAL
 	char tomove = pos->tomove;
 	char towait = pos->towait;
 
@@ -34,16 +34,16 @@ int32_t evaluate(struct position *pos)
 	pos->tomove = BLACK;
 	pos->towait = WHITE;
 	result -= countmoves(pos) * PAWN_VAL / 100;
-	
+
 	pos->tomove = tomove;
 	pos->towait = towait;
-	#endif
+#endif
 
 	result += pos->score;
 
 	// NOTE: Be careful about scaling!!!
 	//return((int32_t)lroundf((pos->score + PAWN_VAL * result)));
-	return(result);
+	return (result);
 }
 
 #endif
