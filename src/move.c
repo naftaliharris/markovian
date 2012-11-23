@@ -86,57 +86,6 @@ void free_meta_move(struct meta_move *mm)
 	}
 }
 
-/*
-// free linked list of best moves
-void free_best_moves(struct move_array *);
-inline void free_best_moves(struct move_array *m)
-{
-	struct move_info *mi_walker1;
-	struct move_info *mi_walker2;
-	for(int i = 0; i < m->lsize; i++){
-		mi_walker1 = m->mi_list[i];
-		while(mi_walker1 != NULL){
-			mi_walker2 = mi_walker1->best;
-			free(mi_walker1);
-			mi_walker1 = mi_walker2;
-		}
-	}
-}
-
-void free_moveinfo(struct move_info *);
-inline void free_moveinfo(struct move_info *mi)
-{
-	struct move_info *mi_walker1;
-	struct move_info *mi_walker2;
-	mi_walker1 = mi;
-	while(mi_walker1 != NULL){
-		mi_walker2 = mi_walker1->best;
-		free(mi_walker1);
-		mi_walker1 = mi_walker2;
-	}
-}
-
-// returns a pointer to a copy of to_be_copied
-struct move_info *copy_move_info_once(struct move_info *);
-inline struct move_info *copy_move_info_once(struct move_info *to_be_copied)
-{
-	struct move_info *mi = malloc(sizeof(struct move_info));	
-	memcpy(mi,to_be_copied,sizeof(struct move_info));
-	return(mi);
-}
-
-void copy_move_info(struct move_info *);
-inline void copy_move_info(struct move_info *mi)
-{
-	// copy the linked list of best moves
-	struct move_info *mi_walker1 = mi->best;
-	while(mi_walker1->best != NULL){
-		mi_walker1->best = copy_move_info_once(mi_walker1->best);
-		mi_walker1 = mi_walker1->best;
-	}
-}
-*/
-
 #define USE_32_BIT_MULTIPLICATIONS
 // transforms signature 'b' with magic 'magic' of length 'bits'
 // typically, b = rook_bitboard & mask, or analogous

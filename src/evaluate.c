@@ -42,7 +42,6 @@ int32_t evaluate(struct position * pos)
 	result += pos->score;
 
 	// NOTE: Be careful about scaling!!!
-	//return((int32_t)lroundf((pos->score + PAWN_VAL * result)));
 	return (result);
 }
 

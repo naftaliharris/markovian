@@ -11,10 +11,6 @@
 #include "../move.h"
 #include "../move.c"
 
-// compute a hash from scratch (as opposed to move-unmove style)
-// presumption is that this will not be used often, so no effort has been made to optimize it.
-// for example, can exploit fact that both kings are always on the board, that never more than 10 rooks, 8 pawns, etc..
-
 void print_hash(struct hashed *h)
 {
 	fprintf(stderr, "hash\t\t\tscore\tflags\tmovenum\tply\tbestmove\n");
@@ -25,6 +21,10 @@ void print_hash(struct hashed *h)
 }
 
 int cache_writes;
+
+// compute a hash from scratch (as opposed to move-unmove style)
+// presumption is that this will not be used often, so no effort has been made to optimize it.
+// for example, can exploit fact that both kings are always on the board, that never more than 10 rooks, 8 pawns, etc..
 uint64_t make_hash(struct position *pos)
 {
 	uint64_t result = ToMoveHash[pos->tomove];

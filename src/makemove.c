@@ -490,28 +490,4 @@ inline void make_move(struct position *pos, struct move *mv)
 	assert(consistency(pos));
 }
 
-/*
-// undo move
-inline void make_unmove(struct position *pos, struct move *mv)
-{
-	assert(mv->from < 64);
-	assert(mv->to < 64);
-	switch(mv->castling)
-	{
-		case NONE:
-			position->pieces[mv->from_p] |= linboard[mv->from];
-			position->pieces[mv->from_p] &= notlinboard[mv->to];
-
-			pos->sumpieces[mv->from_p & COLOR] |= linboard[mv->from];
-			pos->sumpieces[mv->from_p & COLOR] &= notlinboard[mv->to];
-			switch(mv->to_p)
-			{
-				case nopiece_n:
-					break;
-				default:
-			}
-	}
-}
-*/
-
 #endif

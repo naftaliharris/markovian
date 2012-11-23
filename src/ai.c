@@ -86,11 +86,6 @@ const int32_t from_p_vals[14] = {
 int move_goodness(struct meta_move *);
 inline int move_goodness(struct meta_move *mm)
 {
-	/*
-	   switch(mm->mv.to_p)
-	   {
-	   case nopiece_n:
-	 */
 	return (to_p_vals[mm->mv.to_p] + from_p_vals[mm->mv.from_p]);
 }
 
@@ -122,15 +117,8 @@ void quiet(struct position *pos, unsigned char depth, int32_t low, int32_t high,
 {
 	assert(high > low + TOLERANCE);
 
-	/*
-	   #ifdef _NODE_COUNT
-	   mm->nodes++;
-	   #endif
-	 */
-
 	//if our king has been captured, stop computation to avoid capturing back! (fails for stalemates)
 	if (pos->score * multiplier < -KING_CAPTURED_SCORE) {
-		//mm->score = multiplier * pos->score;
 		mm->score = -(KING_VAL - depth * PAWN_VAL);
 		mm->ma = NULL;
 		return;
@@ -175,7 +163,6 @@ void quiet(struct position *pos, unsigned char depth, int32_t low, int32_t high,
 			our_low = max(our_low, h->score);
 			if (our_high <= our_low + TOLERANCE) {
 				mm->score = our_low + TOLERANCE;
-				//mm->score = our_low;
 				mm->ma = NULL;
 
 #ifdef _CACHE_HITS
@@ -196,7 +183,6 @@ void quiet(struct position *pos, unsigned char depth, int32_t low, int32_t high,
 	our_low = max(now_score, our_low);
 	if (our_high <= our_low + TOLERANCE) {
 		mm->score = our_low + TOLERANCE;
-		//mm->score = our_low;
 		mm->ma = NULL;
 
 #ifdef _USE_QUIET_HASH
@@ -302,12 +288,6 @@ void quiet(struct position *pos, unsigned char depth, int32_t low, int32_t high,
 		quiet(pos_tmp, depth + 1, -our_high, -our_low, -multiplier,
 		      contempt, mm_select);
 
-		/*
-		   #ifdef _NODE_COUNT
-		   mm->nodes += mm->ma->list[i].nodes;
-		   #endif
-		 */
-
 		// check if best move
 		if ((bestmm == NULL) || (-mm_select->score > -bestmm->score)) {
 			bestmm = mm_select;
@@ -344,19 +324,12 @@ void quiet(struct position *pos, unsigned char depth, int32_t low, int32_t high,
 				our_low = -bestmm->score;
 			}
 		}
-		/*
-		   if(-mm_select->score > our_low){
-		   our_low = -mm_select->score;
-		   bestmm = mm_select;
-		   }
-		 */
 	}
 
  label_quiet_done:
 	free(pos_tmp);
 
 	// add the best score
-	//mm->score = our_low;
 	mm->score = max(now_score, -bestmm->score);
 
 #ifdef _USE_QUIET_HASH
@@ -432,7 +405,6 @@ void score(struct position *pos, unsigned char ply, unsigned char depth,
 		//if king has been captured, stop computation to avoid capturing back! (fails for stalemates)
 		//this check only occurs if ply > 0 because it occurs at the beginning of quiet, and no sense repeating it.
 		if (pos->score * multiplier < -KING_CAPTURED_SCORE) {
-			//mm->score = multiplier * pos->score;
 			mm->score = -(KING_VAL - depth * PAWN_VAL);
 			mm->ma = NULL;
 			return;
@@ -469,7 +441,6 @@ void score(struct position *pos, unsigned char ply, unsigned char depth,
 				our_low = max(our_low, h->score);
 				if (our_high <= our_low + TOLERANCE) {
 					mm->score = our_low + TOLERANCE;
-					//mm->score = our_low;
 #ifdef _CACHE_HITS
 					score_lb_cutoff_hits++;
 #endif
@@ -607,7 +578,6 @@ void score(struct position *pos, unsigned char ply, unsigned char depth,
 		free(pos_tmp);
 
 		// add the best score
-		//mm->score = our_low;
 		mm->score = -bestmm->score;
 
 #ifdef _USE_SCORE_HASH

@@ -1,82 +1,82 @@
-#	Wish list												Status		Importance
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-1.	Optimize knight_move											IRRELEVANT	low
-2.	Optimize find_piece											DONE		low
-3.	Thread ai.c ?														high
-4.	Implement incremental adjustments to allmoves, possibly?								medium
-5.	Strategical score function (hopefully incremental!)							IN PROGRESS	CRITICAL !
-6.	Use ncurses to get better user interface, or connect to xboard						DONE		medium
-7.	Implement castling											DONE		CRITICAL !
-8.	Implement en passant											DONE		CRITICAL !
-9.	Implement promotion											DONE		CRITICAL !
-10.	Support pgn-style move commands										IRRELEVANT	high
-11.	Figure out why stupid rook-sac is happening (debugging)							DONE		high
-12.	Make score return a struct										DONE		medium
-13.	Fix timing												DONE		low
-14.	Implement random move functions, at least in opening									low
-15.	Implement alpha-beta pruning										DONE		CRITICAL !
-16.	Implement queiesence											DONE		CRITICAL !
-17.	Stop mallocing/writing/freeing in score(pos,0)								DONE		medium
-18.	Sort moves heuristically to improve alpha-beta								IN PROGRESS	CRITICAL !
-19.	Add opening book													CRITICAL !
-20.	Debug unmove function											IRRELEVANT	high
-21.	Worry about floating point error in alpha-beta >= and <='s						DONE		medium
-22.	Change board struct to bitboards									DONE		high
-23.	Add aspiration search for tactics/mates									DONE		high
-24.	Implement hashing of positions										DONE		CRITICAL !
-25.	Implement pondering													medium
-26.	Precompute various things in struct position, like (~pos->wpieces & ~pos->bpieces, or ~linboard[])	IN PROGRESS	medium
-27.	Implement magic lookups for rook and bishop moves							DONE		high
-28.	Add checkmate, stalemate checkers											CRITICAL !
-29.	Write endgame players, or at least special evals									low
-30.	Figure out the bug in illegalmove, rook e1 g1 doesn't work.						DONE		medium
-31.	More fully implement xboard interface									IN PROGRESS	low
-32.	Implement iterative deepening; true time controls							IN PROGRESS	CRITICAL !
-33.	Clean up and speed up ai.c by implementing negamax							DONE		medium
-34.	Very interesting: Make program optimize itself by varying parameters, checking performance.				low
-35.	Save time on sorting by implementing a partial sort							IRRELEVANT	medium
-36.	Implement killer heuristic, (easy to do: just keep an array of good moves at each ply)					CRITICAL !
-37.	Deal with possible inefficiencies in the location vs. bitboard thing. (too much ffsll'ing).				medium
-38.	Make capture-moves generator.										DONE		high
-39.	Make unmove function													medium
-40.	Debug hashing. WTF is happening when add control_params?						DONE		high
-41.	Debug hash update in BKING castling. (1. e4 e5 2. Nf3 Nf6 3. Nxe5)					DONE		low
-42.	Hash pawn structure and/or update upon changes										medium
-43.	Fix bug in quiet: currently possible to try all quieting moves but still get HASH_LB, not HASH_EXACT	DONE		medium
-44.	Implement search reductions/extensions, pruning, PV searching, etc					IN PROGRESS	CRITICAL !
-45.	Debugging: figure out wtf is up with all moves same score. (1. d4 d5 2. c4 dxc4 3. Qd3...)		IN PROGRESS	CRITICAL !
-46.	Make dynamic aspiration window: vary by how quiet/sharp the position is, point in game, etc				medium
-47.	Make scores ints instead of floats									DONE		low
-48.	Put code up on sourceforge												medium
-49.	Implement 50 move rule and 3 fold repitition								IN PROGRESS	CRITICAL !
-50.	Add checks and/or pawn promotions dequieting moves, perhaps								medium
-51.	Add incentive to get checkmate ASAP.									DONE		low
-52.	Decentralize file dependencies and add ifndefs								IN PROGRESS	low
-53.	Better material evaluation function: incentivize trades when ahead, more complex idea of value				low
-54.	Add ability to load positions												low
+#       Wish list                                                                                               Status          Importance
+------------------------------------------------------------------------------------------------------------------------------------------
+1.      Optimize knight_move                                                                                    IRRELEVANT      low
+2.      Optimize find_piece                                                                                     DONE            low
+3.      Thread ai.c ?                                                                                                           high
+4.      Implement incremental adjustments to allmoves, possibly?                                                                medium
+5.      Strategical score function (hopefully incremental!)                                                     IN PROGRESS     CRITICAL !
+6.      Use ncurses to get better user interface, or connect to xboard                                          DONE            medium
+7.      Implement castling                                                                                      DONE            CRITICAL !
+8.      Implement en passant                                                                                    DONE            CRITICAL !
+9.      Implement promotion                                                                                     DONE            CRITICAL !
+10.     Support pgn-style move commands                                                                         IRRELEVANT      high
+11.     Figure out why stupid rook-sac is happening (debugging)                                                 DONE            high
+12.     Make score return a struct                                                                              DONE            medium
+13.     Fix timing                                                                                              DONE            low
+14.     Implement random move functions, at least in opening                                                                    low
+15.     Implement alpha-beta pruning                                                                            DONE            CRITICAL !
+16.     Implement queiesence                                                                                    DONE            CRITICAL !
+17.     Stop mallocing/writing/freeing in score(pos,0)                                                          DONE            medium
+18.     Sort moves heuristically to improve alpha-beta                                                          IN PROGRESS     CRITICAL !
+19.     Add opening book                                                                                                        CRITICAL !
+20.     Debug unmove function                                                                                   IRRELEVANT      high
+21.     Worry about floating point error in alpha-beta >= and <='s                                              DONE            medium
+22.     Change board struct to bitboards                                                                        DONE            high
+23.     Add aspiration search for tactics/mates                                                                 DONE            high
+24.     Implement hashing of positions                                                                          DONE            CRITICAL !
+25.     Implement pondering                                                                                                     medium
+26.     Precompute various things in struct position, like (~pos->wpieces & ~pos->bpieces, or ~linboard[])      IN PROGRESS     medium
+27.     Implement magic lookups for rook and bishop moves                                                       DONE            high
+28.     Add checkmate, stalemate checkers                                                                                       CRITICAL !
+29.     Write endgame players, or at least special evals                                                                        low
+30.     Figure out the bug in illegalmove, rook e1 g1 doesn't work.                                             DONE            medium
+31.     More fully implement xboard interface                                                                   IN PROGRESS     low
+32.     Implement iterative deepening; true time controls                                                       IN PROGRESS     CRITICAL !
+33.     Clean up and speed up ai.c by implementing negamax                                                      DONE            medium
+34.     Very interesting: Make program optimize itself by varying parameters, checking performance.                             low
+35.     Save time on sorting by implementing a partial sort                                                     IRRELEVANT      medium
+36.     Implement killer heuristic, (easy to do: just keep an array of good moves at each ply)                                  CRITICAL !
+37.     Deal with possible inefficiencies in the location vs. bitboard thing. (too much ffsll'ing).                             medium
+38.     Make capture-moves generator.                                                                           DONE            high
+39.     Make unmove function                                                                                                    medium
+40.     Debug hashing. WTF is happening when add control_params?                                                DONE            high
+41.     Debug hash update in BKING castling. (1. e4 e5 2. Nf3 Nf6 3. Nxe5)                                      DONE            low
+42.     Hash pawn structure and/or update upon changes                                                                          medium
+43.     Fix bug in quiet: currently possible to try all quieting moves but still get HASH_LB, not HASH_EXACT    DONE            medium
+44.     Implement search reductions/extensions, pruning, PV searching, etc                                      IN PROGRESS     CRITICAL !
+45.     Debugging: figure out wtf is up with all moves same score. (1. d4 d5 2. c4 dxc4 3. Qd3...)              IN PROGRESS     CRITICAL !
+46.     Make dynamic aspiration window: vary by how quiet/sharp the position is, point in game, etc                             medium
+47.     Make scores ints instead of floats                                                                      DONE            low
+48.     Put code up on github                                                                                   DONE            medium
+49.     Implement 50 move rule and 3 fold repitition                                                            IN PROGRESS     CRITICAL !
+50.     Add checks and/or pawn promotions dequieting moves, perhaps                                                             medium
+51.     Add incentive to get checkmate ASAP.                                                                    DONE            low
+52.     Decentralize file dependencies and add ifndefs                                                          IN PROGRESS     low
+53.     Better material evaluation function: incentivize trades when ahead, more complex idea of value                          low
+54.     Add ability to load positions                                                                                           low
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
 NOTES:
-11.	Involves screwing up the board somehow in the evaluation; running score on the board sometimes changes it, eg: score(pos,3) on rsdone.
-11.	Looking at bestmoves, Knight on c3 thinks he can take rook on a1. wtf?
-11.	Computing allmoves on rsblack doesn't allow knight to move to a1, suggesting problem is in unmoving, struct piece fuckup, etc
+11.     Involves screwing up the board somehow in the evaluation; running score on the board sometimes changes it, eg: score(pos,3) on rsdone.
+11.     Looking at bestmoves, Knight on c3 thinks he can take rook on a1. wtf?
+11.     Computing allmoves on rsblack doesn't allow knight to move to a1, suggesting problem is in unmoving, struct piece fuckup, etc
 
-21.	In revision 36, after worrying about floating point error by adding TOLERANCE, found that it made no difference in terms of speed, suggesting this wasn't an issue.
+21.     In revision 36, after worrying about floating point error by adding TOLERANCE, found that it made no difference in terms of speed, suggesting this wasn't an issue.
 
-32.	Possible problem: when sorting moves, do we need to sort move info's as well? This is all a big mess and probably merits a major struct change.
+32.     Possible problem: when sorting moves, do we need to sort move info's as well? This is all a big mess and probably merits a major struct change.
 
-5.	control_eval not necessarily doing the right thing: maybe it should not compute net attacks but rather attacks for each; maybe also attack weights should depend on the attacking piece.
-	FACT: attack weights should definitely depend on the attacking piece, because that allows you to expand your model at zero zilch nada compuational cost! (+= weight instead of += 1); Need float* instead of char*, but that is no big deal.
-	Make evaluation taper between specific opening and general endgame. (linear in material? logit?)
+5.      control_eval not necessarily doing the right thing: maybe it should not compute net attacks but rather attacks for each; maybe also attack weights should depend on the attacking piece.
+        FACT: attack weights should definitely depend on the attacking piece, because that allows you to expand your model at zero zilch nada compuational cost! (+= weight instead of += 1); Need float* instead of char*, but that is no big deal.
+        Make evaluation taper between specific opening and general endgame. (linear in material? logit?)
 
-45.	returning our_low screws you because it returns information found elsewhere in the tree, instead of in our branch.  It is not a problem with hashing, or with fancy evaluation functions, or with quiet.
-	Why this is happening: After 1. d4 d5 2. c4 dxc4 3. Qd3, computer first examines the obvious cxd3, finds it can also win a pawn, and sets its low to 10. Then the computer, greedy for an even higher score, attempts another move, say ..Qd5, and tells white that the best move it can hope for is -10.  White examines its first move, (a3), which does not remove its queen to safety, and finds that it loses its queen, getting a score of -10. This induces an alpha-beta cutoff, as it should. (White can at least lose its queen and pawn, so black isn't going to be able to do any better in this line than in cxd3 line. That it would in fact do far worse is irrelevant).  But the problem is that the score returned will be -10, the same as the score for the cxd3 line. This could cause problems that both moves are rated the same when one is far far worse.
-	Solution: upon an alpha-beta cutoff, substract a small value from score to prevent this from occuring?  This doesn't work exactly correctly, just saw huge blunder.
-	Real Solution: upon an alpha-beta cutoff, subtract TOLERANCE from score. Otherwise, run into the following nasty problem: Black's knight is threatened. ai first examines moving the knight, which yields a score (relative to white) of .33536 pawns. Then it analyzes a move in which the knight is not moved, say a6. The first examined response does not recapture, and has score (relative to white) of .33530 pawns. (The next examined response would take the knight and yield a score (relative to white) of roughly 3.00000 pawns). Because of TOLERANCE, this induces a cutoff: if(our_high <= our_low + TOLERANCE) is if(.33536 <= .33530 + 0.00100). But then when black examines a6, it appears better than the knight move because the signal was too small. (Previously TOLERANCE / 100 or TOLERANCE / 50). Solution: signal TOLERANCE, guaranteeing that a6 is no better than the knight move. (It is possible that the scores will be the same, but earlier moves examined take precedence in determining the best move because of strict inequalities in determining if the recent move examined is the best, so this is not a problem).
-	Wierdness: When I use the countmoves evalutation, there is no problem. Is this because control_eval is broken?
+45.     returning our_low screws you because it returns information found elsewhere in the tree, instead of in our branch.  It is not a problem with hashing, or with fancy evaluation functions, or with quiet.
+        Why this is happening: After 1. d4 d5 2. c4 dxc4 3. Qd3, computer first examines the obvious cxd3, finds it can also win a pawn, and sets its low to 10. Then the computer, greedy for an even higher score, attempts another move, say ..Qd5, and tells white that the best move it can hope for is -10.  White examines its first move, (a3), which does not remove its queen to safety, and finds that it loses its queen, getting a score of -10. This induces an alpha-beta cutoff, as it should. (White can at least lose its queen and pawn, so black isn't going to be able to do any better in this line than in cxd3 line. That it would in fact do far worse is irrelevant).  But the problem is that the score returned will be -10, the same as the score for the cxd3 line. This could cause problems that both moves are rated the same when one is far far worse.
+        Solution: upon an alpha-beta cutoff, substract a small value from score to prevent this from occuring?  This doesn't work exactly correctly, just saw huge blunder.
+        Real Solution: upon an alpha-beta cutoff, subtract TOLERANCE from score. Otherwise, run into the following nasty problem: Black's knight is threatened. ai first examines moving the knight, which yields a score (relative to white) of .33536 pawns. Then it analyzes a move in which the knight is not moved, say a6. The first examined response does not recapture, and has score (relative to white) of .33530 pawns. (The next examined response would take the knight and yield a score (relative to white) of roughly 3.00000 pawns). Because of TOLERANCE, this induces a cutoff: if(our_high <= our_low + TOLERANCE) is if(.33536 <= .33530 + 0.00100). But then when black examines a6, it appears better than the knight move because the signal was too small. (Previously TOLERANCE / 100 or TOLERANCE / 50). Solution: signal TOLERANCE, guaranteeing that a6 is no better than the knight move. (It is possible that the scores will be the same, but earlier moves examined take precedence in determining the best move because of strict inequalities in determining if the recent move examined is the best, so this is not a problem).
+        Wierdness: When I use the countmoves evalutation, there is no problem. Is this because control_eval is broken?
 
 IDEAS:
-	Possible different position struct: In addition to the bitboards, add piece positions. Make 64 = captured piece, and make linboard[64] = 0, so that you can continue blindly oring. This will save on ffsll's. Problem: promotion.  At least with the kings, without any loss we can represent as unsigned chars instead, since never are captured, and then can save on ffslling.
-	When looking at positions to compute paramaters for your evaluation function, only look at positions for which the material stays the same after a 5 or 6 ply search, say.
+        Possible different position struct: In addition to the bitboards, add piece positions. Make 64 = captured piece, and make linboard[64] = 0, so that you can continue blindly oring. This will save on ffsll's. Problem: promotion.  At least with the kings, without any loss we can represent as unsigned chars instead, since never are captured, and then can save on ffslling.
+        When looking at positions to compute paramaters for your evaluation function, only look at positions for which the material stays the same after a 5 or 6 ply search, say.
 
-3.	Replace low and high with low[pos->tomove] and high[pos->tomove], and assert that low[pos->tomove] == -high[pow->towait]. Have one lock for all of these. (This allows us to continue to use negamax while threading). Ideal solution: look at the most promising lines first. Maybe have all threads compute the hashed move first, and then look at all the other moves?
+3.      Replace low and high with low[pos->tomove] and high[pos->tomove], and assert that low[pos->tomove] == -high[pow->towait]. Have one lock for all of these. (This allows us to continue to use negamax while threading). Ideal solution: look at the most promising lines first. Maybe have all threads compute the hashed move first, and then look at all the other moves?

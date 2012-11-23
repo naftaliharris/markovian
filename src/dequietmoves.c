@@ -336,107 +336,6 @@ inline void pawn_move_dq(struct position *pos, struct move_array *m,
 	}
 }
 
-/*
-void castling_move(struct position *, struct move_array *, unsigned char);
-inline void castling_move(struct position *pos, struct move_array *m, unsigned char king)
-{
-	switch(king & COLOR)
-	{
-		case WHITE:
-			if(!(pos->perm_castling & WKING)){ // look for attacks on 4,5,6
-				if(!(pos->allpieces & Piece_Castling[PC_WKING])){ // no obstructing pieces
-					if(!(pos->bknights & Knight_Castling[KC_WKING])){ // no knight attacks
-						if(!((pos->bpawns | pos->bking) & Pawn_Castling[PC_WKING])){ // no pawn or king attacks
-							int ok = 1;
-							for(int j = 4; j <= 6; j++){ // no queen, rook, or bishop attacks
-								if(BishopMoves[0*8 + j][magictransform( (pos->allpieces & BishopMasks[0*8 + j]), BishopMagic[0*8 + j], BishopMagicSize[0*8 + j] )] & (pos->bbishops | pos->bqueens)){ // pretend squares are bishops, and see if they can attack an enemy bishop or queen
-									ok = 0;
-									break;
-								}
-								if(RookMoves[0*8 + j][magictransform( (pos->allpieces & RookMasks[0*8 + j]), RookMagic[0*8 + j], RookMagicSize[0*8 + j] )] & (pos->brooks | pos->bqueens)){ // pretend squares are rooks, and see if they can attack an enemy rook or queen
-									ok = 0;
-									break;
-								}
-							}
-							if(ok){
-								add_castling_move(m, WKING);
-							}
-						}
-					}
-				}
-			}
-			if(!(pos->perm_castling & WQUEEN)){ // look for attacks on 2,3,4
-				if(!(pos->allpieces & Piece_Castling[PC_WQUEEN])){ // no obstructing pieces
-					if(!(pos->bknights & Knight_Castling[KC_WQUEEN])){ // no knight attacks
-						if(!((pos->bpawns | pos->bking) & Pawn_Castling[PC_WQUEEN])){ // no pawn or king attacks
-							int ok = 1;
-							for(int j = 2; j <= 4; j++){ // no queen, rook, or bishop attacks
-								if(BishopMoves[0*8 + j][magictransform( (pos->allpieces & BishopMasks[0*8 + j]), BishopMagic[0*8 + j], BishopMagicSize[0*8 + j] )] & (pos->bbishops | pos->bqueens)){ // pretend squares are bishops, and see if they can attack an enemy bishop or queen
-									ok = 0;
-									break;
-								}
-								if(RookMoves[0*8 + j][magictransform( (pos->allpieces & RookMasks[0*8 + j]), RookMagic[0*8 + j], RookMagicSize[0*8 + j] )] & (pos->brooks | pos->bqueens)){ // pretend squares are rooks, and see if they can attack an enemy rook or queen
-									ok = 0;
-									break;
-								}
-							}
-							if(ok){
-								add_castling_move(m, WQUEEN);
-							}
-						}
-					}
-				}
-			}
-			break;
-		default:
-			if(!(pos->perm_castling & BKING)){ // look for attacks on 4,5,6
-				if(!(pos->allpieces & Piece_Castling[PC_BKING])){ // no obstructing pieces
-					if(!(pos->wknights & Knight_Castling[KC_BKING])){ // no knight attacks
-						if(!((pos->wpawns | pos->wking) & Pawn_Castling[PC_BKING])){ // no pawn or king attacks
-							int ok = 1;
-							for(int j = 4; j <= 6; j++){ // no queen, rook, or bishop attacks
-								if(BishopMoves[7*8 + j][magictransform( (pos->allpieces & BishopMasks[7*8 + j]), BishopMagic[7*8 + j], BishopMagicSize[7*8 + j] )] & (pos->wbishops | pos->wqueens)){ // pretend squares are bishops, and see if they can attack an enemy bishop or queen
-									ok = 0;
-									break;
-								}
-								if(RookMoves[7*8 + j][magictransform( (pos->allpieces & RookMasks[7*8 + j]), RookMagic[7*8 + j], RookMagicSize[7*8 + j] )] & (pos->wrooks | pos->wqueens)){ // pretend squares are rooks, and see if they can attack an enemy rook or queen
-									ok = 0;
-									break;
-								}
-							}
-							if(ok){
-								add_castling_move(m, BKING);
-							}
-						}
-					}
-				}
-			}
-			if(!(pos->perm_castling & BQUEEN)){ // look for attacks on 2,3,4
-				if(!(pos->allpieces & Piece_Castling[PC_BQUEEN])){ // no obstructing pieces
-					if(!(pos->wknights & Knight_Castling[KC_BQUEEN])){ // no knight attacks
-						if(!((pos->wpawns | pos->wking) & Pawn_Castling[PC_BQUEEN])){ // no pawn or king attacks
-							int ok = 1;
-							for(int j = 2; j <= 4; j++){ // no queen, rook, or bishop attacks
-								if(BishopMoves[7*8 + j][magictransform( (pos->allpieces & BishopMasks[7*8 + j]), BishopMagic[7*8 + j], BishopMagicSize[7*8 + j] )] & (pos->wbishops | pos->wqueens)){ // pretend squares are bishops, and see if they can attack an enemy bishop or queen
-									ok = 0;
-									break;
-								}
-								if(RookMoves[7*8 + j][magictransform( (pos->allpieces & RookMasks[7*8 + j]), RookMagic[7*8 + j], RookMagicSize[7*8 + j] )] & (pos->wrooks | pos->wqueens)){ // pretend squares are rooks, and see if they can attack an enemy rook or queen
-									ok = 0;
-									break;
-								}
-							}
-							if(ok){
-								add_castling_move(m, BQUEEN);
-							}
-						}
-					}
-				}
-			}
-	}
-}
-*/
-
 // return array of all possible moves
 struct move_array *dequietmoves(struct position *);
 inline struct move_array *dequietmoves(struct position *pos)
@@ -454,7 +353,6 @@ inline struct move_array *dequietmoves(struct position *pos)
 		pawn_move_dq(pos, m, wpawns_n);
 		king_move_dq(pos, m, wking_n);
 
-		//castling_move(pos, m, wking_n);
 		return (m);
 
 	default:
@@ -466,7 +364,6 @@ inline struct move_array *dequietmoves(struct position *pos)
 		pawn_move_dq(pos, m, bpawns_n);
 		king_move_dq(pos, m, bking_n);
 
-		//castling_move(pos, m, bking_n);
 		break;
 	}
 	return (m);

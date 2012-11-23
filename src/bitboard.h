@@ -1,7 +1,7 @@
 // bitboard.h
 // defs for the bitboard
 
-// if unsigned char index is the position of a piece on liboard, then
+// if unsigned char index is the position of a piece on linboard, then
 // index & FILEMASK is the file of the piece, and 
 // index >> ROWSHIFT is the row of the piece
 #define FILEMASK	0x07

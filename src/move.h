@@ -112,35 +112,4 @@ struct meta_move
  * }
  */
 
-// previous
-/*
-struct move_array
-{
-	unsigned int		lsize; //logical size
-	unsigned int		psize; //physical size
-	struct move 		*list;
-	struct move_info 	**mi_list;
-};
-
-// returned by score and quiet
-struct move_info
-{
-	int32_t 			score;
-	struct move		mv;
-	struct move_info	*best; // best move in line
-	
-	//added
-	struct move_array	*m;
-};
-*/
-
-//void free_meta_move(struct meta_move *mm);
-/*
-void init_move(struct move*);
-struct move_array *new_move_array(void);
-void free_move_array(struct move_array *);
-unsigned char find_piece(struct position *, unsigned char);
-void make_move(struct position *, struct move *);
-*/
-
 #endif
