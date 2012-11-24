@@ -1,9 +1,11 @@
 // frontend.c
 // functions for interacting with the user
 
-#include "move.h"
 #include <stdio.h>
 #include <string.h>
+
+#include "move.h"
+#include "fenio.c"
 
 // set the castling in mv
 void user_castling(struct position *pos, struct move *mv)
@@ -142,11 +144,14 @@ void user_move(struct position *pos)
 				*newline = '\0';
 
 				FILE *fp = fopen(buffer, "r");
-				if (fread(pos, sizeof(struct position), 1, fp)
-				    == 0) {
-					fprintf(stderr, "Failed fread\n");
+                char *fen = NULL;
+                size_t n;
+				if (getline(&fen, &n, fp) == -1) {
+					fprintf(stderr, "Failed getline\n");
 				}
 				fclose(fp);
+                fen2pos(pos, fen);
+                free(fen);
 
 				fprintf(stdout,
 					"Resuming position from %s...\n",

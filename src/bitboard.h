@@ -1,6 +1,9 @@
 // bitboard.h
 // defs for the bitboard
 
+#ifndef _BITBOARD_H
+#define _BITBOARD_H
+
 // if unsigned char index is the position of a piece on linboard, then
 // index & FILEMASK is the file of the piece, and 
 // index >> ROWSHIFT is the row of the piece
@@ -93,3 +96,5 @@ const uint64_t notlinboard[64] = {
 0xbfffffffffffffff,
 0x7fffffffffffffff,
 };
+
+#endif

@@ -3,7 +3,7 @@
 
 // Definitions
 
-#define _PRINT_DEFS
+//#define _PRINT_DEFS
 
 //#define _DEBUG
 //#define _XBOARD
