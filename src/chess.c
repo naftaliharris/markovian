@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 			fprintf(stderr, "check.\n");
 		}
 
-		user_move(&pos);
+		user_input(&pos);
 #ifndef _XBOARD
 		print_position(&pos);
 #endif
