@@ -54,6 +54,8 @@
 52.     Decentralize file dependencies and add ifndefs                                                          IN PROGRESS     low
 53.     Better material evaluation function: incentivize trades when ahead, more complex idea of value                          low
 54.     Add ability to load positions                                                                                           low
+55.     Write script to simplify process of playing with xboard                                                                 low
+56.     Write accuracy and speed testing scripts                                                                                high
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 NOTES:

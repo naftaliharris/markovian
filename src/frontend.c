@@ -129,8 +129,10 @@ void user_move(struct position *pos)
 				*newline = '\0';
 
 				FILE *fp = fopen(buffer, "w");
-				fwrite(pos, sizeof(struct position), 1, fp);
+                char *fen = pos2fen(pos);
+                fprintf(fp, "%s", fen);
 				fclose(fp);
+                free(fen);
 			}
 			// resume position
 			else if (strncmp(buffer, "resume", 6) == 0) {
