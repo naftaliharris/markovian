@@ -5,7 +5,7 @@
 #ifndef _CONTROL_EVAL_C
 #define _CONTROL_EVAL_C
 
-#include "control_params.h"
+#include "../params.h"
 #include "squares.h"
 
 void rook_control(struct position *, unsigned char, char *);

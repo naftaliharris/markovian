@@ -13,7 +13,7 @@
 #include "move.h"
 
 #include "hash/hash.h"
-#define CASTLING_BONUS (PAWN_VAL / 4)
+#include "params.h"
 
 void make_move(struct position *, struct move *);
 inline void make_move(struct position *pos, struct move *mv)

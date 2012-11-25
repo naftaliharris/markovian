@@ -9,6 +9,7 @@
 #include "evaluation/control_eval.c"
 #include "evaluation/pawn_eval.c"
 #include "countmoves.c"
+#include "params.h"
 
 // Will return evaluation relative to white; higher numbers are better for white
 int32_t evaluate(struct position * pos)
@@ -29,11 +30,11 @@ int32_t evaluate(struct position * pos)
 
 	pos->tomove = WHITE;
 	pos->towait = BLACK;
-	result += countmoves(pos) * PAWN_VAL / 100;
+	result += countmoves(pos) * PAWN_VAL * COUNT_VAL;
 
 	pos->tomove = BLACK;
 	pos->towait = WHITE;
-	result -= countmoves(pos) * PAWN_VAL / 100;
+	result -= countmoves(pos) * PAWN_VAL * COUNT_VAL;
 
 	pos->tomove = tomove;
 	pos->towait = towait;

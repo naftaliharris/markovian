@@ -31,6 +31,7 @@
 #include "evaluate.c"
 #include "allmoves.c"
 #include "makemove.c"
+#include "params.h"
 
 #include <time.h>
 
@@ -40,46 +41,7 @@
 
 #define MINUSINFINITY		((int32_t)(-10000 * PAWN_VAL))
 #define PLUSINFINITY		((int32_t)(10000 * PAWN_VAL))
-//#define TOLERANCE             ((int32_t)(PAWN_VAL / 1000))
 #define TOLERANCE		0
-#define MATCUTOFF		((int32_t)(1.50 * PAWN_VAL))	//be very VERY careful with this parameter when you change your score function!!!
-#define ASPIRATION_WINDOW	((int32_t)(0.25 * PAWN_VAL))
-#define CONTEMPT		((int32_t)(0))	// this is always a positive quantity
-//#define CONTEMPT              ((int32_t)(PAWN_VAL / 2)) // this is always a positive quantity
-
-const int32_t to_p_vals[14] = {
-	1000 * PAWN_VAL,
-	1000 * PAWN_VAL,
-	9 * PAWN_VAL,
-	9 * PAWN_VAL,
-	5 * PAWN_VAL,
-	5 * PAWN_VAL,
-	3.25 * PAWN_VAL,
-	3.25 * PAWN_VAL,
-	3 * PAWN_VAL,
-	3 * PAWN_VAL,
-	1 * PAWN_VAL,
-	1 * PAWN_VAL,
-	1 * PAWN_VAL,		//ep
-	-10 * PAWN_VAL,		//nopiece
-};
-
-const int32_t from_p_vals[14] = {
-	-1000 * PAWN_VAL,
-	-1000 * PAWN_VAL,
-	9 * PAWN_VAL,
-	9 * PAWN_VAL,
-	5 * PAWN_VAL,
-	5 * PAWN_VAL,
-	3.25 * PAWN_VAL,
-	3.25 * PAWN_VAL,
-	3 * PAWN_VAL,
-	3 * PAWN_VAL,
-	1 * PAWN_VAL,
-	1 * PAWN_VAL,
-	1 * PAWN_VAL,		//ep
-	-10 * PAWN_VAL,		//nopiece
-};
 
 // returns a heuristic "goodness" of a move, with higher numbers indicating more promising moves
 // for use in select_mm

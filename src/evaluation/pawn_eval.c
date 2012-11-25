@@ -5,10 +5,8 @@
 #ifndef _PAWN_EVAL_C
 #define _PAWN_EVAL_C
 
-#include "doubled_penalty.h"
-#include "passed_points.h"
+#include "../params.h"
 #include "squares.h"
-//#define H8 9223372036854775808
 
 uint32_t pawn_eval(struct position *);
 inline uint32_t pawn_eval(struct position *pos)

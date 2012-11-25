@@ -6,6 +6,8 @@
 
 #include <stdint.h>
 
+#include "params.h"
+
 #define WHITE	0x00
 #define BLACK	0x01 //use bitwise or
 
@@ -27,29 +29,7 @@
 #define BQUEEN	0x08
 #define NONE	0x0E
 
-// important: pawn_val must be at _LEAST_ this big for tolerance/100 to be positive
-// also can't be much bigger, else infinity = 10000 * pawn_val will overflow
-
-#define PAWN_VAL 100000
-#define CENTIPAWN 1000
 #define KING_CAPTURED_SCORE (800 * PAWN_VAL)
-
-const int32_t piece_vals[14] = {
-1000 * PAWN_VAL,
-1000 * PAWN_VAL,
-9 * PAWN_VAL,
-9 * PAWN_VAL,
-5 * PAWN_VAL,
-5 * PAWN_VAL,
-3.25 * PAWN_VAL,
-3.25 * PAWN_VAL,
-3 * PAWN_VAL,
-3 * PAWN_VAL,
-1 * PAWN_VAL,
-1 * PAWN_VAL,
-1 * PAWN_VAL, //ep
-0 * PAWN_VAL, //nopiece
-};
 
 #define KING_VAL	piece_vals[0]
 #define QUEEN_VAL	piece_vals[2]
