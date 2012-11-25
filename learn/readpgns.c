@@ -9,18 +9,18 @@
 #include <string.h>
 #include <assert.h>
 
-#include "../../position.h"
-#include "../../bitscan.c"
+#include "../src/position.h"
+#include "../src/bitscan.c"
 
-#include "../../position.c"
-#include "../../move.h"
-#include "../../move.c"
+#include "../src/position.c"
+#include "../src/move.h"
+#include "../src/move.c"
 
-#include "../control_eval.c"
+#include "../src/evaluation/control_eval.c"
 #define _ESTIMATE_PAWN_EVAL
-#include "../pawn_eval.c"
+#include "../src/evaluation/pawn_eval.c"
 
-#include "../../ai.c"
+#include "../src/ai.c"
 
 #define LINESIZE 8192
 
