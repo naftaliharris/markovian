@@ -2,6 +2,7 @@
 # tools for parsing pgns
 
 from __future__ import division
+from collections import OrderedDict
 import re
 import random
 import sys
@@ -10,7 +11,7 @@ class ChessGame:
     def __init__(self, lines):
 
         # Fill in the meta data
-        self.meta_data = {}
+        self.meta_data = OrderedDict()
         for line in lines:
             m = re.match(r'\[(?P<key>[^"]*) "(?P<value>[^"]*)"\]', line)
             if m:
@@ -23,7 +24,7 @@ class ChessGame:
             if m: self.moves.append(m.group(0).lower())
 
     """Return a markovian-friendly string"""
-    def __str__(self):
+    def markovian_str(self):
         result = ""
         if self.meta_data["Result"] == '1-0':
             result += "white\n"
@@ -38,7 +39,15 @@ class ChessGame:
 
         result += str(len(self.moves)) + "\n"
         result += "\n".join(self.moves)
-        result += "\nGAME OVER\n"
+        result += "\nGAME OVER"
+
+        return result
+
+    """Return a pgn-style string"""
+    def pgn_str(self):
+        result = "\n".join('[%s "%s"]' % (key, value) for (key, value) in self.meta_data.items())
+        result += "\n\n"
+        result += " ".join(self.moves) + " " + self.meta_data["Result"]
 
         return result
 
