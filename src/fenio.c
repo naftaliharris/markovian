@@ -1,6 +1,9 @@
 // fenio.c
 // converts between .fen format and the position struct
 
+#ifndef _FENIO_C
+#define _FENIO_C
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -268,3 +271,5 @@ char *pos2fen(struct position *pos)
 
     return fen;
 }
+
+#endif

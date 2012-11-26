@@ -1,9 +1,12 @@
 # Makefile
 
 CC = gcc
-CFLAGS = -std=c99 -D_GNU_SOURCE -Wall -lrt -D_DEBUG -g
+OPTIONS = -D_SILENT
+CFLAGS = -std=c99 -Wall -O3 -D_GNU_SOURCE $(OPTIONS)
+LINKS = -lrt -lm
 
-readpgns: readpgns.c
+speedbenchmark:
+	$(CC) $(CFLAGS) speedbenchmark.c -o speedbenchmark $(LINKS)
 
 clean:
-	rm -f readpgns *.pyc
+	rm -f speedbenchmark *.pyc

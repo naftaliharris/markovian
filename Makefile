@@ -5,7 +5,8 @@
 CC = gcc
 SRC = src
 DEPS = $(SRC)/chess.c $(SRC)/move.c $(SRC)/makemove.c $(SRC)/move.h $(SRC)/position.c $(SRC)/position.h $(SRC)/frontend.c $(SRC)/ai.c $(SRC)/timer.c $(SRC)/allmoves.c $(SRC)/testing.c $(SRC)/evaluate.c $(SRC)/bitscan.c $(SRC)/evaluation/control_eval.c $(SRC)/hash/hash.c $(SRC)/evaluation/pawn_eval.c $(SRC)/features.h $(SRC)/history.h $(SRC)/history.c Makefile 
-CFLAGS = -std=c99 -Wall -D_GNU_SOURCE
+OPTIONS = -D_USE_HISTORY
+CFLAGS = -std=c99 -Wall -D_GNU_SOURCE $(OPTIONS)
 LINKS = -lrt -lm
 MAIN = $(SRC)/chess.c
 

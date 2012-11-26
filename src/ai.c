@@ -561,7 +561,7 @@ void score(struct position *pos, unsigned char ply, unsigned char depth,
 	}
 }
 
-void computer_move(struct position *pos, unsigned char ply)
+struct move *find_bestmove(struct position *pos, unsigned char ply, unsigned long long over_time)
 {
 	int multiplier = pos->tomove * -2 + 1;
 	int contempt = -multiplier * CONTEMPT;
@@ -584,7 +584,7 @@ void computer_move(struct position *pos, unsigned char ply)
 
 #ifdef _IT_DEP
 	int ply_tmp = 2;
-	while (minus_time(&ts_f, &ts_i) < 3000000000)	// 3 seconds
+	while (minus_time(&ts_f, &ts_i) < over_time)
 #else
 	for (int ply_tmp = 2; ply_tmp <= ply; ply_tmp++)
 #endif
@@ -595,37 +595,30 @@ void computer_move(struct position *pos, unsigned char ply)
 		score(pos, ply_tmp, 0, old_score - ASPIRATION_WINDOW,
 		      old_score + ASPIRATION_WINDOW, multiplier, contempt, mm);
 		if ((multiplier * mm->score > old_score + ASPIRATION_WINDOW)
-		    || (multiplier * mm->score <
-			old_score - ASPIRATION_WINDOW)) {
-			fprintf(stderr, "Failed aspiration search\n");
-			score(pos, ply_tmp, 0, MINUSINFINITY, PLUSINFINITY,
-			      multiplier, contempt, mm);
+		    || (multiplier * mm->score < old_score - ASPIRATION_WINDOW)) {
+			score(pos, ply_tmp, 0, MINUSINFINITY, PLUSINFINITY, multiplier, contempt, mm);
 		}
 #else
-		score(pos, ply_tmp, 0, MINUSINFINITY, PLUSINFINITY, multiplier,
-		      contempt, mm);
+		score(pos, ply_tmp, 0, MINUSINFINITY, PLUSINFINITY, multiplier, contempt, mm);
 #endif
 
 #ifdef _IT_DEP
 		clock_gettime(CLOCK_REALTIME, &ts_f);
 #endif
 
+#ifndef _SILENT
 #ifdef _XBOARD
 #ifdef _IT_DEP
 #ifdef _NODE_COUNT
-		fprintf(stdout, "%d %d %llu %d ", ply_tmp,
-			multiplier * mm->score / CENTIPAWN, minus_time(&ts_f,
-								       &ts_i) /
-			10000000, mm->nodes);
+		fprintf(stdout, "%d %d %llu %d ", ply_tmp, multiplier * mm->score / CENTIPAWN, minus_time(&ts_f, &ts_i) / 10000000, mm->nodes);
 #else
-		fprintf(stdout, "%d %d %llu 1000000 ", ply_tmp,
-			multiplier * mm->score / CENTIPAWN, minus_time(&ts_f,
-								       &ts_i) /
-			10000000);
+		fprintf(stdout, "%d %d %llu 1000000 ", ply_tmp, multiplier * mm->score / CENTIPAWN, minus_time(&ts_f, &ts_i) / 10000000);
+#endif
 #endif
 #endif
 #endif
 
+#ifndef _SILENT
 #ifndef _USE_SCORE_HASH
 #error "Score hash must always be used for now."
 #else
@@ -642,6 +635,7 @@ void computer_move(struct position *pos, unsigned char ply)
 #ifdef _XBOARD
 			fprintf(stdout, " ");
 #endif
+#endif
 
 			make_move(pos_tmp, &h->bestmove);
 			h = lookup_trans(pos_tmp->hash);
@@ -650,18 +644,22 @@ void computer_move(struct position *pos, unsigned char ply)
 		free(pos_tmp);
 #endif
 
+#ifndef _SILENT
 #ifndef _XBOARD
 		fprintf(stdout, "%d\n", multiplier * mm->score);
 #else
 		fprintf(stdout, "\n");
+#endif
 #endif
 
 #ifdef _IT_DEP
 		ply_tmp++;
 #endif
 
+#ifndef _SILENT
 #ifdef _CACHE_HITS
 		print_cache_hits();
+#endif
 #endif
 
 	}
@@ -670,8 +668,17 @@ void computer_move(struct position *pos, unsigned char ply)
 	struct hashed *h = lookup_trans(pos->hash);
 	struct move *bestmove = &h->bestmove;
 
+	free_meta_move(mm);
+	free(mm);
+    return(bestmove);
+}
+
+void computer_move(struct position *pos, unsigned char ply)
+{
+    struct move *bestmove = find_bestmove(pos, ply, 3000000000); // 3 seconds
 	make_move(pos, bestmove);
 
+#ifndef _SILENT
 #ifdef _XBOARD
 	fprintf(stdout, "move ");
 	print_move(bestmove);
@@ -681,7 +688,5 @@ void computer_move(struct position *pos, unsigned char ply)
 	fprintf(stdout, "Nodes: %d\n", mm->nodes);
 #endif
 #endif
-
-	free_meta_move(mm);
-	free(mm);
+#endif
 }

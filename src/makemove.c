@@ -18,6 +18,7 @@
 void make_move(struct position *, struct move *);
 inline void make_move(struct position *pos, struct move *mv)
 {
+    assert(consistency(pos));
 	switch (mv->castling) {
 	case NONE:
 		assert(mv->from < 64);

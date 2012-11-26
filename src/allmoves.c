@@ -427,8 +427,7 @@ inline void pawn_move(struct position *pos, struct move_array *m,
 }
 
 void castling_move(struct position *, struct move_array *, unsigned char);
-inline void castling_move(struct position *pos, struct move_array *m,
-			  unsigned char king)
+inline void castling_move(struct position *pos, struct move_array *m, unsigned char king)
 {
 	switch (king & COLOR) {
 	case WHITE:

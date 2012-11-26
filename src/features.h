@@ -3,7 +3,7 @@
 
 // Definitions
 
-//#define _PRINT_DEFS
+#define _PRINT_DEFS
 
 //#define _DEBUG
 //#define _XBOARD
@@ -17,7 +17,7 @@
 #define _USE_PAWN_EVAL
 //#define _USE_COUNT_EVAL
 //#define _USE_ASPIRATION_SEARCH
-#define _USE_HISTORY
+//#define _USE_HISTORY
 
 // Dependencies
 

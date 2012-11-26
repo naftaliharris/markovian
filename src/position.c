@@ -122,20 +122,15 @@ void init_position(struct position *pos)
 // makes sure board is consistent
 int consistency(struct position *pos)
 {
-	if (pos->wpieces !=
-	    (pos->wrooks | pos->wknights | pos->wbishops | pos->wqueens | pos->
-	     wking | pos->wpawns)) {
+	if (pos->wpieces != (pos->wrooks | pos->wknights | pos->wbishops | pos->wqueens | pos->wking | pos->wpawns)) {
 		fprintf(stderr, "wpieces inconsistent.\n");
 		return (0);
 	}
-	if (pos->bpieces !=
-	    (pos->brooks | pos->bknights | pos->bbishops | pos->bqueens | pos->
-	     bking | pos->bpawns)) {
+	if (pos->bpieces != (pos->brooks | pos->bknights | pos->bbishops | pos->bqueens | pos-> bking | pos->bpawns)) {
 		fprintf(stderr, "bpieces inconsistent.\n");
 		return (0);
 	}
-	if (!
-	    ((pos->tomove == WHITE && pos->towait == BLACK)
+	if (! ((pos->tomove == WHITE && pos->towait == BLACK)
 	     || (pos->tomove == BLACK && pos->towait == WHITE))) {
 		fprintf(stderr, "tomove and towait inconsistent.\n");
 		return (0);
