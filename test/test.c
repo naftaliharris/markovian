@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "fenio_test.c"
+#include "bitboard_test.c"
 
 void use_result(int test_failures, char *testname, int *failures)
 {
@@ -27,6 +28,7 @@ int main(void)
     
     // run the tests
     use_result(fenio_test(verbose_errors), "fenio.c", &failures);
+    use_result(bitboard_test(verbose_errors), "bitboard.h", &failures);
 
     // print the summary
     fprintf(stderr, "\nSUMMARY: %d errors.\n", failures);

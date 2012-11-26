@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include "position.h"
+#include "bitscan.c"
 #include "hash/hash.c"
 
 char data_to_human(struct position *pos, unsigned char i, unsigned char j)
@@ -119,6 +120,33 @@ void init_position(struct position *pos)
 }
 
 #ifdef _DEBUG
+// determine material balance from scratch
+// Unforunately, this does not and cannot include the castling bonus,
+// so it can't compute pos->score and be used in consistency(pos)
+int32_t make_score(struct position *pos)
+{
+    int32_t result = 0;
+    for(int i = 0; i < 12; i+=2)
+    {
+        result += sparse_popcount(pos->pieces[i]) * piece_vals[i];
+        result -= sparse_popcount(pos->pieces[i+1]) * piece_vals[i+1];
+    }
+
+    return(result);
+}
+
+// determine total material on board, (except kings)
+int32_t make_tot_mat(struct position *pos)
+{
+    int32_t result = 0;
+    for(int i = 2; i < 12; i++)
+    {
+        result += sparse_popcount(pos->pieces[i]) * piece_vals[i];
+    }
+
+    return(result);
+}
+
 // makes sure board is consistent
 int consistency(struct position *pos)
 {
@@ -147,6 +175,10 @@ int consistency(struct position *pos)
 		fprintf(stderr, "hash inconsistent.\n");
 		return (0);
 	}
+    if (pos->tot_mat != make_tot_mat(pos)) {
+		fprintf(stderr, "tot_mat inconsistent.\n");
+		return (0);
+    }
 
 	return (1);
 }

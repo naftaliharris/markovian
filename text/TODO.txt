@@ -57,7 +57,7 @@
 55.     Write script to simplify process of playing with xboard                                                                 low
 56.     Write accuracy and speed testing scripts                                                                IN PROGRESS     high
 57.     If opponent plays principle variation, start search at high ply                                                         medium
-58.     Write automated unit and integration tests                                                                              high
+58.     Write automated unit and integration tests                                                              IN PROGRESS     high
 59.     Debugging: figure out what's going on with truncated PV lines                                                           high
 
 ------------------------------------------------------------------------------------------------------------------------------------------

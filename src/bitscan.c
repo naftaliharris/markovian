@@ -1,6 +1,9 @@
 // bitscan.c
 // attempt to implement fast bitscans and other bit-level operations
 
+#ifndef _BITSCAN_C
+#define _BITSCAN_C
+
 #include <stdint.h>
 
 /*
@@ -30,3 +33,5 @@ inline int sparse_popcount(uint64_t x)
 	}
 	return (count);
 }
+
+#endif
