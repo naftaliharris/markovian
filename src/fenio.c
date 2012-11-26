@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #include "position.h"
 #include "position.c"
@@ -191,6 +192,7 @@ void fen2pos(struct position *pos, char *fen)
 const char fenpieces[12] = {'K', 'k', 'Q', 'q', 'R', 'r', 'B', 'b', 'N', 'n', 'P', 'p'};
 
 // returns a fen string representing the position pos
+// the fen string includes a terminal newline
 char *pos2fen(struct position *pos)
 {
     assert(consistency(pos));

@@ -4,24 +4,26 @@
 
 CC = gcc
 SRC = src
-DEPS = $(SRC)/chess.c $(SRC)/move.c $(SRC)/makemove.c $(SRC)/move.h $(SRC)/position.c $(SRC)/position.h $(SRC)/frontend.c $(SRC)/ai.c $(SRC)/timer.c $(SRC)/allmoves.c $(SRC)/testing.c $(SRC)/evaluate.c $(SRC)/bitscan.c $(SRC)/evaluation/control_eval.c $(SRC)/hash/hash.c $(SRC)/evaluation/pawn_eval.c $(SRC)/features.h $(SRC)/history.h $(SRC)/history.c Makefile 
+TEST = test
+SRCDEPS = $(SRC)/chess.c $(SRC)/move.c $(SRC)/makemove.c $(SRC)/move.h $(SRC)/position.c $(SRC)/position.h $(SRC)/frontend.c $(SRC)/ai.c $(SRC)/timer.c $(SRC)/allmoves.c $(SRC)/testing.c $(SRC)/evaluate.c $(SRC)/bitscan.c $(SRC)/evaluation/control_eval.c $(SRC)/hash/hash.c $(SRC)/evaluation/pawn_eval.c $(SRC)/features.h $(SRC)/history.h $(SRC)/history.c Makefile 
+TESTDEPS = $(TEST)/test.c $(TEST)/fenio_test.c
 OPTIONS = -D_USE_HISTORY
 CFLAGS = -std=c99 -Wall -D_GNU_SOURCE $(OPTIONS)
 LINKS = -lrt -lm
 MAIN = $(SRC)/chess.c
 
-xboard: $(DEPS)
+xboard: $(SRCDEPS)
 	$(CC) $(CFLAGS) -O3 -D_XBOARD -D_IT_DEP -D_NODE_COUNT $(MAIN) -o markovian $(LINKS)
-debug: $(DEPS)
+debug: $(SRCDEPS)
 	$(CC) $(CFLAGS) -g -D_DEBUG $(MAIN) -o markovian $(LINKS)
-testing: $(DEPS)
-	$(CC) $(CFLAGS) -O3 $(MAIN) -o markovian $(LINKS)
-profile: $(DEPS)
+runtests: $(SRCDEPS) $(TESTDEPS)
+	$(CC) $(CFLAGS) -g -D_DEBUG test/test.c -o runtests $(LINKS)
+profile: $(SRCDEPS)
 	$(CC) $(CFLAGS) -O3 -fno-inline -g -pg $(MAIN) -o markovian $(LINKS)
-cache-hits: $(DEPS)
+cache-hits: $(SRCDEPS)
 	$(CC) $(CFLAGS) -g -D_NODE_COUNT -D_CACHE_HITS $(MAIN) -o markovian $(LINKS)
-install: $(DEPS)
+install: $(SRCDEPS)
 	$(CC) $(CFLAGS) -O3 -D_XBOARD -D_IT_DEP -D_NODE_COUNT $(MAIN) -o markovian $(LINKS)
 	mv markovian /usr/bin
 clean:
-	rm -f markovian *.o a.out gmon.out
+	rm -f markovian runtests *.o a.out gmon.out
