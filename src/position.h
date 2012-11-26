@@ -27,7 +27,7 @@
 #define BKING	0x02
 #define WQUEEN	0x04
 #define BQUEEN	0x08
-#define NONE	0x0E
+#define NONE	0x0F
 
 #define KING_CAPTURED_SCORE (800 * PAWN_VAL)
 
