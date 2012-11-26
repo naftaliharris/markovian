@@ -6,7 +6,7 @@ CFLAGS = -std=c99 -Wall -O3 -D_GNU_SOURCE $(OPTIONS)
 LINKS = -lrt -lm
 
 speedbenchmark:
-	$(CC) $(CFLAGS) speedbenchmark.c -o speedbenchmark $(LINKS)
+	$(CC) $(CFLAGS) speedbenchmark.c -o a.out $(LINKS)
 
 clean:
-	rm -f speedbenchmark *.pyc
+	rm -f a.out

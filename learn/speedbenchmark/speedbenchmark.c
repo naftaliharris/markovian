@@ -10,21 +10,21 @@
 #include <assert.h>
 #include <string.h>
 
-#include "../src/features.h"
-#include "../src/bitscan.c"
-#include "../src/position.h"
-#include "../src/move.h"
-#include "../src/move.c"
-#include "../src/hash/hash.c"
-#include "../src/position.c"
-#include "../src/addmove.c"
-#include "../src/allmoves.c"
-#include "../src/makemove.c"
-#include "../src/frontend.c"
-#include "../src/fenio.c"
-#include "../src/evaluate.c"
-#include "../src/timer.c"
-#include "../src/ai.c"
+#include "../../src/features.h"
+#include "../../src/bitscan.c"
+#include "../../src/position.h"
+#include "../../src/move.h"
+#include "../../src/move.c"
+#include "../../src/hash/hash.c"
+#include "../../src/position.c"
+#include "../../src/addmove.c"
+#include "../../src/allmoves.c"
+#include "../../src/makemove.c"
+#include "../../src/frontend.c"
+#include "../../src/fenio.c"
+#include "../../src/evaluate.c"
+#include "../../src/timer.c"
+#include "../../src/ai.c"
 
 // times a position up to ply
 // it would be better if we had all the moves, instead of just the position
