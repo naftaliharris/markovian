@@ -668,6 +668,13 @@ struct move *find_bestmove(struct position *pos, unsigned char ply, unsigned lon
 	struct hashed *h = lookup_trans(pos->hash);
 	struct move *bestmove = &h->bestmove;
 
+#ifndef _SILENT
+#ifndef _XBOARD
+#ifdef _NODE_COUNT
+    fprintf(stdout, "Nodes: %d\n", mm->nodes);
+#endif
+#endif
+#endif
 	free_meta_move(mm);
 	free(mm);
     return(bestmove);
@@ -683,10 +690,6 @@ void computer_move(struct position *pos, unsigned char ply)
 	fprintf(stdout, "move ");
 	print_move(bestmove);
 	fprintf(stdout, "\n");
-#else
-#ifdef _NODE_COUNT
-	fprintf(stdout, "Nodes: %d\n", mm->nodes);
-#endif
 #endif
 #endif
 }

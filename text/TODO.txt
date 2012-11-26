@@ -3,7 +3,7 @@
 1.      Optimize knight_move                                                                                    IRRELEVANT      low
 2.      Optimize find_piece                                                                                     DONE            low
 3.      Thread ai.c ?                                                                                                           high
-4.      Implement incremental adjustments to allmoves, possibly?                                                                medium
+4.      Implement incremental adjustments to allmoves, possibly?                                                                low
 5.      Strategical score function (hopefully incremental!)                                                     IN PROGRESS     CRITICAL !
 6.      Use ncurses to get better user interface, or connect to xboard                                          DONE            medium
 7.      Implement castling                                                                                      DONE            CRITICAL !
@@ -18,7 +18,7 @@
 16.     Implement queiesence                                                                                    DONE            CRITICAL !
 17.     Stop mallocing/writing/freeing in score(pos,0)                                                          DONE            medium
 18.     Sort moves heuristically to improve alpha-beta                                                          IN PROGRESS     CRITICAL !
-19.     Add opening book                                                                                                        CRITICAL !
+19.     Add opening book                                                                                                        high
 20.     Debug unmove function                                                                                   IRRELEVANT      high
 21.     Worry about floating point error in alpha-beta >= and <='s                                              DONE            medium
 22.     Change board struct to bitboards                                                                        DONE            high
@@ -31,14 +31,14 @@
 29.     Write endgame players, or at least special evals                                                                        low
 30.     Figure out the bug in illegalmove, rook e1 g1 doesn't work.                                             DONE            medium
 31.     More fully implement xboard interface                                                                   IN PROGRESS     low
-32.     Implement iterative deepening; true time controls                                                       IN PROGRESS     CRITICAL !
+32.     Implement iterative deepening                                                                           DONE            CRITICAL !
 33.     Clean up and speed up ai.c by implementing negamax                                                      DONE            medium
-34.     Very interesting: Make program optimize itself by varying parameters, checking performance.                             low
+34.     Very interesting: Make program optimize itself by varying parameters, checking performance.                             high
 35.     Save time on sorting by implementing a partial sort                                                     IRRELEVANT      medium
-36.     Implement killer heuristic, (easy to do: just keep an array of good moves at each ply)                                  CRITICAL !
+36.     Implement killer heuristic, (easy to do: just keep an array of good moves at each ply)                                  high
 37.     Deal with possible inefficiencies in the location vs. bitboard thing. (too much ffsll'ing).                             medium
 38.     Make capture-moves generator.                                                                           DONE            high
-39.     Make unmove function                                                                                                    medium
+39.     Make unmove function?                                                                                                   medium
 40.     Debug hashing. WTF is happening when add control_params?                                                DONE            high
 41.     Debug hash update in BKING castling. (1. e4 e5 2. Nf3 Nf6 3. Nxe5)                                      DONE            low
 42.     Hash pawn structure and/or update upon changes                                                                          medium
@@ -53,9 +53,12 @@
 51.     Add incentive to get checkmate ASAP.                                                                    DONE            low
 52.     Decentralize file dependencies and add ifndefs                                                          IN PROGRESS     low
 53.     Better material evaluation function: incentivize trades when ahead, more complex idea of value                          low
-54.     Add ability to load positions                                                                                           low
+54.     Add ability to load positions                                                                           DONE            low
 55.     Write script to simplify process of playing with xboard                                                                 low
-56.     Write accuracy and speed testing scripts                                                                                high
+56.     Write accuracy and speed testing scripts                                                                IN PROGRESS     high
+57.     If opponent plays principle variation, start search at high ply                                                         medium
+58.     Write automated unit and integration tests                                                                              high
+59.     Debugging: figure out what's going on with truncated PV lines                                                           high
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 NOTES:
