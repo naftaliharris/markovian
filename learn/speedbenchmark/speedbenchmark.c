@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <string.h>
+#include <getopt.h>
 
 #include "../../src/features.h"
 #include "../../src/bitscan.c"
@@ -48,39 +49,78 @@ unsigned long long timeposition(struct position *pos, unsigned char ply)
 
 void usage(char *name)
 {
-    fprintf(stderr, "Usage: %s [--new-plies seconds]\n", name);
+    fprintf(stderr, "Usage: %s [--new-plies seconds] [--fen-file fenfile] [--ply-file plyfile] [--average-only]\n", name);
     exit(EXIT_FAILURE);
 }
 
 int main(int argc, char **argv)
 {
     unsigned long long over_time = 0;
-    if(argc == 3)
-    {
-        if(strcmp(argv[1], "--new-plies") != 0)
-        {
-            usage(argv[0]);
+    char *fenfilename = "speedbenchmark.fens";
+    char *plyfilename = "speedbenchmark.plies";
+    int averageonly = 0;
+
+    // Parse the arguments
+    int c;
+    while (1) {
+
+        int option_index = 0;
+
+        static struct option long_options[] = {
+            {"new-plies", 1, 0, 0},
+            {"fen-file", 1, 0, 0},
+            {"ply-file", 1, 0, 0},
+            {"average-only", 0, 0, 0},
+            {0, 0, 0, 0}
+        };
+
+        c = getopt_long(argc, argv, "", long_options, &option_index);
+        if (c == -1) {
+            break;
         }
-        double time_s = atof(argv[2]);
-        over_time = (unsigned long long) (BILLION * time_s);
+
+        switch (c) {
+        case 0:
+            switch(option_index) {
+            case 0:
+                over_time = (unsigned long long) (BILLION * atof(optarg));
+                break;
+            case 1:
+                fenfilename = optarg;
+                break;
+            case 2:
+                plyfilename = optarg;
+                break;
+            case 3:
+                averageonly = 1;
+                break;
+            }
+            break;
+
+        default:
+            usage(argv[0]);
+            break;
+        }
     }
-    else if(argc != 1)
-    {
+
+    if(optind < argc) {
         usage(argv[0]);
     }
 
     struct position pos;
-    FILE *infile = fopen("speedbenchmark.fens", "r");
-    FILE *plyfile = (over_time == 0) ? fopen("speedbenchmark.plies", "r") : fopen("speedbenchmark.plies", "w");
+    FILE *fenfile = fopen(fenfilename, "r");
+    FILE *plyfile = (over_time == 0) ? fopen(plyfilename, "r") : fopen(plyfilename, "w");
     char *fen;
     size_t n;
     unsigned long long total_time = 0;
 
-    for(int i = 0; i < 500; i++)
+    int fen_count;
+    for(fen_count = 0; ; fen_count++)
     {
         fen = NULL;
-        while (getline(&fen, &n, infile) == -1) {
-            fprintf(stderr, "Failed getline\n");
+        if (getline(&fen, &n, fenfile) == -1) {
+            // EOL
+            break;
         }
         fen2pos(&pos, fen);
         free(fen);
@@ -98,8 +138,9 @@ int main(int argc, char **argv)
             fflush(plyfile);
         } else {
             char *line = NULL;
-            while (getline(&line, &n, plyfile) == -1) {
+            if (getline(&line, &n, plyfile) == -1) {
                 fprintf(stderr, "Failed getline\n");
+                exit(EXIT_FAILURE);
             }
             unsigned char ply = (unsigned char) atoi(line);
             free(line);
@@ -107,10 +148,13 @@ int main(int argc, char **argv)
         }
 
         total_time += timed;
-        fprintf(stdout, "%llu,", timed);
-        fflush(stdout);
+        if(!averageonly) {
+            fprintf(stdout, "%llu,", timed);
+            fflush(stdout);
+        }
     }
-    fprintf(stdout, "%llu\n", total_time / 500);
+
+    fprintf(stdout, "%llu\n", total_time / fen_count);
     fflush(stdout);
 
     return(0);
