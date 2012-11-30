@@ -75,6 +75,9 @@ class CConstant:
 
     def __str__(self):
         """Returns the C-code version"""
+        assert self.ctype is not None
+        assert self.name is not None
+        assert self.data is not None
         dimstr = "".join("[%d]" % dim for dim in self.dims)
         result = "const %s %s%s = %s;" % (self.ctype, self.name, dimstr, self._str_array(self.data))
         return result
