@@ -33,7 +33,7 @@
 31.     More fully implement xboard interface                                                                   IN PROGRESS     low
 32.     Implement iterative deepening                                                                           DONE            CRITICAL !
 33.     Clean up and speed up ai.c by implementing negamax                                                      DONE            medium
-34.     Very interesting: Make program optimize itself by varying parameters, checking performance.                             high
+34.     Very interesting: Make program optimize itself by varying parameters, checking performance.             IN PROGRESS     high
 35.     Save time on sorting by implementing a partial sort                                                     IRRELEVANT      medium
 36.     Implement killer heuristic, (easy to do: just keep an array of good moves at each ply)                                  high
 37.     Deal with possible inefficiencies in the location vs. bitboard thing. (too much ffsll'ing).                             medium
@@ -59,6 +59,7 @@
 57.     If opponent plays principle variation, start search at high ply                                                         medium
 58.     Write automated unit and integration tests                                                              IN PROGRESS     high
 59.     Debugging: figure out what's going on with truncated PV lines                                                           high
+60.     Fix time controls                                                                                                       high
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 NOTES:

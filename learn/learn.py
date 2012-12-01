@@ -17,6 +17,7 @@ def speedoptimize(iterations, purturb_count, fen_count, sigma, pgn_file):
 
     paramset = ParamSet("../src/params.h")
     for n in xrange(iterations):
+        print "Iteration %d: %s" % (n, sh.date())
         with open(".temp_fens", "w") as f:
             for line in random_fens[n * fen_count : (n+1) * fen_count]:
                 f.write(line + '\n')
@@ -33,6 +34,7 @@ def init_fen_file(pgn_file, fen_count):
 def cleanup():
     sh.rm(".temp_fens")
     sh.rm(".temp_plies")
+    sh.rm("speedbenchmark/a.out")
 
 def speed_iteration(pset_orig, purturb_count, sigma):
     """Finds a better set of parameters near paramset, and returns it"""
@@ -45,7 +47,7 @@ def speed_iteration(pset_orig, purturb_count, sigma):
     candidates = [pset_orig] + purturbed
 
     # This is wrongish; should do some kind of modeling or something
-    return candidates[speeds.index(max(speeds))]
+    return candidates[speeds.index(min(speeds))]
 
 def init_fens(pset_orig):
     """Initializes the plies and returns the speed of pset_orig on them"""
@@ -112,11 +114,10 @@ def recompile(pset):
     sh.cd("speedbenchmark")
     sh.make("clean")
     sh.make()
-    sh.make("clean")
     sh.cd("../")
 
 def main():
-    speedoptimize(3, 3, 1, 0.1, sys.argv[1])
+    speedoptimize(10, 10, 50, 0.1, sys.argv[1])
 
 if __name__ == "__main__":
     main()
