@@ -13,11 +13,15 @@
 
 void print_hash(struct hashed *h)
 {
-	fprintf(stderr, "hash\t\t\tscore\tflags\tmovenum\tply\tbestmove\n");
-	fprintf(stderr, "%llu\t%d\t%d\t%d\t%d\t", h->hash, h->score, h->flags,
-		h->move_num, h->ply);
-	print_move(&h->bestmove);
-	fprintf(stderr, "\n");
+    if(h == NULL) {
+        fprintf(stderr, "hash is NULL\n");
+    } else {
+        fprintf(stderr, "hash\t\t\tscore\tflags\tmovenum\tply\tbestmove\n");
+        fprintf(stderr, "%llu\t%d\t%d\t%d\t%d\t", h->hash, h->score, h->flags,
+            h->move_num, h->ply);
+        print_move(&h->bestmove);
+        fprintf(stderr, "\n");
+    }
 }
 
 int cache_writes;
@@ -66,10 +70,8 @@ inline struct hashed *lookup_trans(uint64_t hash)
 }
 
 // fills in hash. (Does NOT check whether data there is old or not)
-void write_hash(struct position *, struct hashed *, int32_t, unsigned char,
-		unsigned char, struct move *);
-inline void write_hash(struct position *pos, struct hashed *h, int32_t score,
-		       unsigned char flags, unsigned char ply, struct move *mv)
+void write_hash(struct position *, struct hashed *, int32_t, unsigned char, unsigned char, struct move *);
+inline void write_hash(struct position *pos, struct hashed *h, int32_t score, unsigned char flags, unsigned char ply, struct move *mv)
 {
 #ifdef _CACHE_HITS
 	cache_writes++;
@@ -84,11 +86,8 @@ inline void write_hash(struct position *pos, struct hashed *h, int32_t score,
 }
 
 // fills in hash, except for move. (Does NOT check whether data there is old or not)
-void write_hash_eval(struct position *, struct hashed *, int32_t, unsigned char,
-		     unsigned char);
-inline void write_hash_eval(struct position *pos, struct hashed *h,
-			    int32_t score, unsigned char flags,
-			    unsigned char ply)
+void write_hash_eval(struct position *, struct hashed *, int32_t, unsigned char, unsigned char);
+inline void write_hash_eval(struct position *pos, struct hashed *h, int32_t score, unsigned char flags, unsigned char ply)
 {
 #ifdef _CACHE_HITS
 	cache_writes++;

@@ -58,8 +58,9 @@
 56.     Write accuracy and speed testing scripts                                                                IN PROGRESS     high
 57.     If opponent plays principle variation, start search at high ply                                                         medium
 58.     Write automated unit and integration tests                                                              IN PROGRESS     high
-59.     Debugging: figure out what's going on with truncated PV lines                                                           high
+59.     Debugging: figure out what's going on with truncated PV lines                                           DONE            high
 60.     Fix time controls                                                                                                       high
+61.     Stop malloc'ing and freeing boards in quiet and score                                                                   medium
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 NOTES:
