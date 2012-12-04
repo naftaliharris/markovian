@@ -11,7 +11,7 @@
 int FFSLL(long long int);
 inline int FFSLL(long long int x)
 {
-	return(__builtin_ffsll(x));
+    return(__builtin_ffsll(x));
 }
 */
 
@@ -27,11 +27,11 @@ inline int FFSLL(long long int x)
 int sparse_popcount(uint64_t);
 inline int sparse_popcount(uint64_t x)
 {
-	int count;
-	for (count = 0; x; count++) {
-		x &= x - 1;
-	}
-	return (count);
+    int count;
+    for (count = 0; x; count++) {
+        x &= x - 1;
+    }
+    return (count);
 }
 
 #endif

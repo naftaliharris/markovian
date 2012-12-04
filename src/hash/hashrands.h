@@ -1,18 +1,18 @@
 // hashrands.h
 // random numbers to use in hashing
 
-#define WKingHash	Hash[0]
-#define BKingHash	Hash[1]
-#define WQueensHash	Hash[2]
-#define BQueensHash	Hash[3]
-#define WRooksHash	Hash[4]
-#define BRooksHash	Hash[5]
-#define WBishopsHash	Hash[6]
-#define BBishopsHash	Hash[7]
-#define WKnightsHash	Hash[8]
-#define BKnightsHash	Hash[9]
-#define WPawnsHash	Hash[10]
-#define BPawnsHash	Hash[11]
+#define WKingHash   Hash[0]
+#define BKingHash   Hash[1]
+#define WQueensHash Hash[2]
+#define BQueensHash Hash[3]
+#define WRooksHash  Hash[4]
+#define BRooksHash  Hash[5]
+#define WBishopsHash    Hash[6]
+#define BBishopsHash    Hash[7]
+#define WKnightsHash    Hash[8]
+#define BKnightsHash    Hash[9]
+#define WPawnsHash  Hash[10]
+#define BPawnsHash  Hash[11]
 
 uint64_t ToMoveHash[2] = {
 0x2144b6b8143cf324,

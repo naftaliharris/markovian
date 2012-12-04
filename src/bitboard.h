@@ -7,8 +7,8 @@
 // if unsigned char index is the position of a piece on linboard, then
 // index & FILEMASK is the file of the piece, and 
 // index >> ROWSHIFT is the row of the piece
-#define FILEMASK	0x07
-#define ROWSHIFT	3
+#define FILEMASK    0x07
+#define ROWSHIFT    3
 
 const uint64_t board[8][8] =
 {{0x0000000000000001,0x0000000000000002,0x0000000000000004,0x0000000000000008,0x0000000000000010,0x0000000000000020,0x0000000000000040,0x0000000000000080},

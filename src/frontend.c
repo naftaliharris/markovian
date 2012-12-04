@@ -14,12 +14,11 @@
 int text2move(struct position *pos, char *buffer, struct move *mv)
 {
     memset(mv, 0, sizeof(struct move));
-	struct move_array *m = allmoves(pos);
+    struct move_array *m = allmoves(pos);
     
 #ifndef _XBOARD
     // castling syntax in text-mode
-    if (strncmp(buffer, "O-O", 3) == 0)
-    {
+    if (strncmp(buffer, "O-O", 3) == 0) {
         mv->to_p = nopiece_n;
         // Queenside
         if (strncmp(buffer, "O-O-O", 5) == 0) {
@@ -60,7 +59,7 @@ int text2move(struct position *pos, char *buffer, struct move *mv)
 #endif
 
     // Determine to and from
-	int fromj, fromi, from, toj, toi, to;
+    int fromj, fromi, from, toj, toi, to;
 #ifdef _XBOARD
     fromj = buffer[0] - 'a';
     fromi = buffer[1] - '1';
@@ -94,44 +93,44 @@ int text2move(struct position *pos, char *buffer, struct move *mv)
     }
 
     // Determine possible castling
-	mv->castling = NONE;
-	if (mv->from_p == wking_n) {
-		if (mv->from == 4 && mv->to == 6) {
-			mv->castling = WKING;
-		}
-		if (mv->from == 4 && mv->to == 2) {
-			mv->castling = WQUEEN;
-		}
-	}
-	if (mv->from_p == bking_n) {
-		if (mv->from == 60 && mv->to == 62) {
-			mv->castling = BKING;
-		}
-		if (mv->from == 60 && mv->to == 58) {
-			mv->castling = BQUEEN;
-		}
-	}
+    mv->castling = NONE;
+    if (mv->from_p == wking_n) {
+        if (mv->from == 4 && mv->to == 6) {
+            mv->castling = WKING;
+        }
+        if (mv->from == 4 && mv->to == 2) {
+            mv->castling = WQUEEN;
+        }
+    }
+    if (mv->from_p == bking_n) {
+        if (mv->from == 60 && mv->to == 62) {
+            mv->castling = BKING;
+        }
+        if (mv->from == 60 && mv->to == 58) {
+            mv->castling = BQUEEN;
+        }
+    }
 
     // Determine possible special moves
-	mv->special = EMPTY;
+    mv->special = EMPTY;
     unsigned char color;
     int promotion = 0;
-	if (mv->from_p == wpawns_n) {
-		if (mv->to / 8 == 3) {
-			if (mv->from / 8 == 1) {
-				mv->special = ADVANCE2;
-			}
-		} else if (mv->to / 8 == 7) {
+    if (mv->from_p == wpawns_n) {
+        if (mv->to / 8 == 3) {
+            if (mv->from / 8 == 1) {
+                mv->special = ADVANCE2;
+            }
+        } else if (mv->to / 8 == 7) {
             color = WHITE;
             promotion = 1;
         }
     }
     else if (mv->from_p == bpawns_n) {
-		if (mv->to / 8 == 4) {
-			if (mv->from / 8 == 6) {
-				mv->special = ADVANCE2;
-			}
-		} else if (mv->to / 8 == 0) {
+        if (mv->to / 8 == 4) {
+            if (mv->from / 8 == 6) {
+                mv->special = ADVANCE2;
+            }
+        } else if (mv->to / 8 == 0) {
             color = BLACK;
             promotion = 1;
         }
@@ -177,18 +176,18 @@ int text2move(struct position *pos, char *buffer, struct move *mv)
     }
     int result = found_mv ? TXT2MV_SUCCESS : TXT2MV_ILLEGAL_MV_ERROR;
 
-	free_move_array(m);
+    free_move_array(m);
     return result;
 }
 
 // Interact with the user
 void user_input(struct position *pos)
 {
-	size_t bsize = 32;
-	char *buffer = malloc(bsize);
-	struct move *mv = malloc(sizeof(struct move));
+    size_t bsize = 32;
+    char *buffer = malloc(bsize);
+    struct move *mv = malloc(sizeof(struct move));
 
-	while (1) {
+    while (1) {
         memset(buffer, 0, bsize);
         while (getline(&buffer, &bsize, stdin) == -1) {
             fprintf(stderr, "Failed getline.\n");

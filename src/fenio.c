@@ -176,15 +176,13 @@ void fen2pos(struct position *pos, char *fen)
     pos->move_num = (uint16_t) (2 * (fullmoves - 1) + pos->tomove);
 
     // Compute and impute the rest of the position
-	pos->wpieces =
-	    pos->wrooks | pos->wknights | pos->wbishops | pos->wqueens | pos->wking | pos->wpawns;
-	pos->bpieces =
-	    pos->brooks | pos->bknights | pos->bbishops | pos->bqueens | pos->bking | pos->bpawns;
-	pos->allpieces = pos->wpieces | pos->bpieces;
+    pos->wpieces = pos->wrooks | pos->wknights | pos->wbishops | pos->wqueens | pos->wking | pos->wpawns;
+    pos->bpieces = pos->brooks | pos->bknights | pos->bbishops | pos->bqueens | pos->bking | pos->bpawns;
+    pos->allpieces = pos->wpieces | pos->bpieces;
 
     pos->limp1 = 0; // limp1 is used to determine repetitions, so set this to zero to be safe.
 
-	pos->hash = make_hash(pos);
+    pos->hash = make_hash(pos);
 
     assert(consistency(pos));
 }
@@ -209,8 +207,7 @@ char *pos2fen(struct position *pos)
             for(int l = 0; l < 12; l++)
             {
                 if(pos->pieces[l] & board[i][j]) {
-                    if(blanks > 0)
-                    {
+                    if(blanks > 0) {
                         fen[k++] = (char) ('0' + blanks);
                     }
                     fen[k++] = fenpieces[l];
@@ -220,12 +217,10 @@ char *pos2fen(struct position *pos)
             }
             blanks++;
         }
-        if(blanks > 0)
-        {
+        if(blanks > 0) {
             fen[k++] = (char) ('0' + blanks);
         }
-        if(i > 0)
-        {
+        if(i > 0) {
             fen[k++] = '/';
         }
     }
@@ -236,8 +231,7 @@ char *pos2fen(struct position *pos)
     fen[k++] = ' ';
 
     // Figure out castling rights
-    if(pos->perm_castling == NONE)
-    {
+    if(pos->perm_castling == NONE) {
         fen[k++] = '-';
     }
     else
@@ -254,12 +248,9 @@ char *pos2fen(struct position *pos)
     fen[k++] = ' ';
 
     // Figure out en passant
-    if(pos->ep == EP_NONE)
-    {
+    if(pos->ep == EP_NONE) {
         fen[k++] = '-';
-    }
-    else
-    {
+    } else {
         fen[k++] = (char) ('a' + pos->ep);
         fen[k++] = (pos->towait == WHITE) ? '3' : '6';
     }

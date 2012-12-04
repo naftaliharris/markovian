@@ -9,7 +9,7 @@
 
 struct history
 {
-	uint64_t keys[LONGEST_GAME]; // a list of the hashes of previous positions
+    uint64_t keys[LONGEST_GAME]; // a list of the hashes of previous positions
 };
 
 struct history *hist; // the global pointer to the history

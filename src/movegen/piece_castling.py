@@ -11,28 +11,28 @@ print "const uint64_t Piece_Castling[4] = {"
 # KINGSIDE
 result = 0
 for j in [5, 6]: 
-	result += 2**(0*8 + j)
+    result += 2**(0*8 + j)
 
 print str(hex(result)) + ","
 
 # QUEENSIDE
 result = 0
 for j in [1, 2, 3]: 
-	result += 2**(0*8 + j)
+    result += 2**(0*8 + j)
 
 print str(hex(result)) + ","
 
 # KINGSIDE
 result = 0
 for j in [5, 6]: 
-	result += 2**(7*8 + j)
+    result += 2**(7*8 + j)
 
 print str(hex(result)) + ","
 
 # QUEENSIDE
 result = 0
 for j in [1, 2, 3]: 
-	result += 2**(7*8 + j)
+    result += 2**(7*8 + j)
 
 print str(hex(result)) + ","
 

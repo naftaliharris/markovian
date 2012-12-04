@@ -16,28 +16,28 @@ print "const uint64_t Pawn_Castling[4] = {"
 # KINGSIDE
 result = 0
 for j in [3, 4, 5, 6, 7]: 
-	result += 2**(1*8 + j)
+    result += 2**(1*8 + j)
 
 print str(hex(result)) + ","
 
 # QUEENSIDE
 result = 0
 for j in [1, 2, 3, 4, 5]: 
-	result += 2**(1*8 + j)
+    result += 2**(1*8 + j)
 
 print str(hex(result)) + ","
 
 # KINGSIDE
 result = 0
 for j in [3, 4, 5, 6, 7]: 
-	result += 2**(6*8 + j)
+    result += 2**(6*8 + j)
 
 print str(hex(result)) + ","
 
 # QUEENSIDE
 result = 0
 for j in [1, 2, 3, 4, 5]: 
-	result += 2**(6*8 + j)
+    result += 2**(6*8 + j)
 
 print str(hex(result)) + ","
 
