@@ -560,8 +560,8 @@ struct move *find_bestmove(struct position *pos, unsigned char ply, unsigned lon
 
     // iterative deepening
     struct timespec ts_i, ts_f;
-    clock_gettime(CLOCK_REALTIME, &ts_i);
-    clock_gettime(CLOCK_REALTIME, &ts_f);
+    current_utc_time(&ts_i);
+    current_utc_time(&ts_f);
 
     score(pos, 1, 0, MINUSINFINITY, PLUSINFINITY, multiplier, contempt, mm);
 
@@ -586,7 +586,7 @@ struct move *find_bestmove(struct position *pos, unsigned char ply, unsigned lon
 #endif
 
 #ifdef _IT_DEP
-        clock_gettime(CLOCK_REALTIME, &ts_f);
+        current_utc_time(&ts_f);
 #endif
 
 #ifndef _SILENT

@@ -63,7 +63,6 @@ int main(int argc, char **argv)
     assert(consistency(&pos));
 
     struct timespec realt_old, realt_new;
-    struct timespec cput_old, cput_new;
 
     tt = new_trans_tables();
 
@@ -94,20 +93,16 @@ int main(int argc, char **argv)
             fprintf(stderr, "check.\n");
         }
 
-        clock_gettime(CLOCK_REALTIME, &realt_old);
-        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cput_old);
+        current_utc_time(&realt_old);
         computer_move(&pos, ply);
         assert(consistency(&pos));
-        clock_gettime(CLOCK_REALTIME, &realt_new);
-        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cput_new);
+        current_utc_time(&realt_new);
 
 #ifndef _XBOARD
         fprintf(stderr, "One second: %12llu ns\n",
             (long long unsigned)BILLION);
         fprintf(stderr, "Real  time: %12llu ns\n",
             (long long unsigned)minus_time(&realt_new, &realt_old));
-        fprintf(stderr, "CPU   time: %12llu ns\n",
-            (long long unsigned)minus_time(&cput_new, &cput_old));
 
         print_position(&pos);
 #endif

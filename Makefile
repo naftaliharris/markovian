@@ -7,7 +7,11 @@ SRCDEPS = $(SRC)/chess.c $(SRC)/move.c $(SRC)/makemove.c $(SRC)/move.h $(SRC)/po
 TESTDEPS = $(TEST)/test.c $(TEST)/fenio_test.c $(TEST)/search_test.c
 PLAY_OPTIONS = -D_USE_HISTORY -D_USE_ASPIRATION_SEARCH
 CFLAGS = -std=c99 -Wall -D_GNU_SOURCE
-LINKS = -lrt -lm
+LINKS = -lm
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+    LINKS += -lrt
+endif
 MAIN = $(SRC)/chess.c
 
 # Compile version for use by xboard
