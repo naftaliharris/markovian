@@ -3,6 +3,7 @@
 # runs all the tests on Markovian
 
 import unittest
+import random
 import sh
 
 class TestMarkovian(unittest.TestCase):
@@ -17,7 +18,7 @@ class TestMarkovian(unittest.TestCase):
         """Make sure aspiration search is the same as ordinary search
         Uses random fens as values, so not guaranteed to produce the same
         output when run multiple times"""
-        lines = str(sh.rl("test/data/fenio.fens", "--count=10")).rstrip('\n')
+        lines = random.sample(open("test/data/fenio.fens").readlines(), 10)
 
         sh.make("aspire_search")
         run = sh.Command("./aspire_search")
